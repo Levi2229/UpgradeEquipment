@@ -1,0 +1,3 @@
+displayName = Upgrade Equipment
+author = Oempa
+version = 0.11
