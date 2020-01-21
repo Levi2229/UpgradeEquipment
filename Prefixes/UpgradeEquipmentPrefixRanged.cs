@@ -50,7 +50,7 @@ namespace UpgradeEquipment.Prefixes
         public override void SetStats(ref float damageMult, ref float knockbackMult, ref float useTimeMult, ref float scaleMult, ref float shootSpeedMult, ref float manaMult, ref int critBonus)
         {
             float multiplier = 1f + 0.06f * _power;
-            damageMult *= multiplier;
+            damageMult *= multiplier * 1.3f;
             useTimeMult = 1 - Convert.ToSingle(Math.Sqrt(multiplier)) / 8;
             if(multiplier /2 > 1)
             {
