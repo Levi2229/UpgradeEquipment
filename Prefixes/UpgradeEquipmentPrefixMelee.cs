@@ -55,7 +55,7 @@ namespace UpgradeEquipment.Prefixes
             damageMult *= multiplier;
             useTimeMult = 1 - Convert.ToSingle(Math.Sqrt(multiplier)) / 8;
             shootSpeedMult *= multiplier / 2;
-            critBonus = (int)multiplier;
+            critBonus = (int)_power;
             if (multiplier /3 < 1)
             {
                 if (!disableSizeChange)

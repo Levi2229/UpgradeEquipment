@@ -52,8 +52,11 @@ namespace UpgradeEquipment.Prefixes
             float multiplier = 1f + 0.06f * _power;
             damageMult *= multiplier;
             useTimeMult = 1 - Convert.ToSingle(Math.Sqrt(multiplier)) / 8;
-            shootSpeedMult *= multiplier / 2;
-            critBonus = (int)multiplier;
+            if(multiplier /2 > 1)
+            {
+                shootSpeedMult *= multiplier / 2;
+            }
+            critBonus = (int)_power;
         }
 
         public override void ModifyValue(ref float valueMult)

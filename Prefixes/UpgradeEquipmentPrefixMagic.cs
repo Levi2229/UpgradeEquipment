@@ -53,7 +53,7 @@ namespace UpgradeEquipment.Prefixes
             damageMult *= multiplier;
             useTimeMult = 1 - Convert.ToSingle(Math.Sqrt(multiplier)) /6;
             shootSpeedMult *= multiplier /2;
-            critBonus = (int)multiplier;
+            critBonus = (int)_power;
             manaMult = 1 - Convert.ToSingle(Math.Sqrt(multiplier)) / 4;
         }
 
