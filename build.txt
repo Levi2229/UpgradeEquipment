@@ -1,5 +1,5 @@
 displayName = Upgrade Equipment
 author = Oempa
-version = 0.15
+version = 0.16
 homepage = https://forums.terraria.org/index.php?threads/equipment-upgrader-mod.85517/
 buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*
