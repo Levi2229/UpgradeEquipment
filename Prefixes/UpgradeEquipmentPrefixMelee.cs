@@ -83,7 +83,7 @@ namespace UpgradeEquipment.Prefixes
 
         public override void ModifyValue(ref float valueMult)
         {
-            float multiplier = 1f + (_power / 7);
+            float multiplier = _power / 7f + 1f;
             valueMult = multiplier;
         }
     }
