@@ -83,7 +83,7 @@ namespace UpgradeEquipment.UI
         internal static bool CanBuyUpgrade(int price)
         {
             int upgradeTokenIndex = Main.LocalPlayer.FindItem(ItemType<Items.UpgradeToken>());
-            if (Main.LocalPlayer.inventory[upgradeTokenIndex] != null)
+            if (upgradeTokenIndex != -1)
             {
                 int tokenAmount = Main.LocalPlayer.inventory[upgradeTokenIndex].stack;
                 if (tokenAmount >= price)

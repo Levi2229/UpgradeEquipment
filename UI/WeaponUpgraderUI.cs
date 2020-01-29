@@ -181,7 +181,14 @@ namespace UpgradeEquipment.UI
                     if (Main.mouseLeftRelease && Main.mouseLeft)
                     {
                         int upgradeTokenIndex = Main.LocalPlayer.FindItem(ItemType<Items.UpgradeToken>());
-                        Main.LocalPlayer.inventory[upgradeTokenIndex].stack += PrefixHelper.getTotalSpent(moddedPrefix.getNameAsTier()) / 2;
+                        if (upgradeTokenIndex == -1)
+                        {
+                            Item.NewItem(Main.LocalPlayer.getRect(), ItemType<Items.UpgradeToken>(), (PrefixHelper.getTotalSpent(moddedPrefix.getNameAsTier()) / 2));
+                        }
+                        else
+                        {
+                            Main.LocalPlayer.inventory[upgradeTokenIndex].stack += PrefixHelper.getTotalSpent(moddedPrefix.getNameAsTier()) / 2;
+                        }
                         bool favorited = _vanillaItemSlot.Item.favorited;
                         int stack = _vanillaItemSlot.Item.stack;
                         Item reforgeItem = new Item();

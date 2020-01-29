@@ -6,6 +6,10 @@ You can configure some values if you feel they might be annoying, such as size a
 
 Release notes:
 
+Release 0.3.1
+
+- Fixed crashes related to the player having no Upgrade Tokens in their inventory.
+
 Release 0.3
 
 - You now get Upgrade Tokens when you defeat any boss.
