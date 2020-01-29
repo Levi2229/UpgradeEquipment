@@ -30,7 +30,6 @@ namespace UpgradeEquipment.Items
             return -1;
         }
 
-
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
             if (!item.social && item.prefix > 0)

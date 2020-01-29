@@ -6,15 +6,13 @@ namespace UpgradeEquipment.UI
     {
         public string name;
         public bool isModded;
-        public int pricePlat = 0;
-        public int priceGold = 1;
+        public int price = 0;
 
-        public WeaponUpgraderPrefix(string name, bool isModded, int priceGold, int pricePlat)
+        public WeaponUpgraderPrefix(string name, bool isModded, int price)
         {
             this.name = name;
             this.isModded = isModded;
-            this.priceGold = priceGold;
-            this.pricePlat = pricePlat;
+            this.price = price;
         }
 
         public int getNameAsTier()

@@ -75,44 +75,47 @@ namespace UpgradeEquipment.UI
 
             const int slotX = 50;
             const int slotY = 270;
-            if (!_vanillaItemSlot.Item.IsAir && (_vanillaItemSlot.Item.melee || _vanillaItemSlot.Item.ranged | _vanillaItemSlot.Item.magic))
+            if (!_vanillaItemSlot.Item.IsAir && (_vanillaItemSlot.Item.melee || _vanillaItemSlot.Item.ranged || _vanillaItemSlot.Item.magic))
             {
                 Item item = _vanillaItemSlot.Item;
                 byte prefix = item.prefix;
 
                 WeaponUpgraderPrefix moddedPrefix = PrefixHelper.FindCurrentPrefix(item.HoverName, item.Name);
 
-                int awesomePrice = Item.buyPrice(moddedPrefix.pricePlat, moddedPrefix.priceGold, 0, 0);
+                int awesomePrice = moddedPrefix.price;
 
-                string costText = Language.GetTextValue("LegacyInterface.46") + ": ";
-                string coinsText = "";
-                int[] coins = Utils.CoinsSplit(awesomePrice);
-                if (coins[3] > 0)
+                string upgradeCostText = "";
+
+                upgradeCostText = "[c/" + Colors.AlphaDarken(Colors.CoinPlatinum).Hex3() + ":" + "Cost: " + awesomePrice + " Upgrade Tokens] " ;
+                  
+                int refundX = slotX + 150;
+                int refundY = slotY + 30;
+                bool hoveringOverRefundButton = Main.mouseX > refundX - 10 && Main.mouseX < refundX + 175 && Main.mouseY > refundY - 5 && Main.mouseY < refundY + 20 && !PlayerInput.IgnoreMouseInterface;
+
+                Color c = Color.White;
+
+                if(hoveringOverRefundButton)
                 {
-                    coinsText = coinsText + "[c/" + Colors.AlphaDarken(Colors.CoinPlatinum).Hex3() + ":" + coins[3] + " " + Language.GetTextValue("LegacyInterface.15") + "] ";
-                }
-                if (coins[2] > 0)
-                {
-                    coinsText = coinsText + "[c/" + Colors.AlphaDarken(Colors.CoinGold).Hex3() + ":" + coins[2] + " " + Language.GetTextValue("LegacyInterface.16") + "] ";
-                }
-                if (coins[1] > 0)
-                {
-                    coinsText = coinsText + "[c/" + Colors.AlphaDarken(Colors.CoinSilver).Hex3() + ":" + coins[1] + " " + Language.GetTextValue("LegacyInterface.17") + "] ";
-                }
-                if (coins[0] > 0)
-                {
-                    coinsText = coinsText + "[c/" + Colors.AlphaDarken(Colors.CoinCopper).Hex3() + ":" + coins[0] + " " + Language.GetTextValue("LegacyInterface.18") + "] ";
+                    c = Color.Green;
                 }
 
+                if (moddedPrefix.getNameAsTier() > 5)
+                {
+                    hoveringOverRefundButton = Main.mouseX > refundX - 55 && Main.mouseX < refundX + 125 && Main.mouseY > refundY - 5 && Main.mouseY < refundY + 20 && !PlayerInput.IgnoreMouseInterface;
+                    if (hoveringOverRefundButton)
+                    {
+                        c = Color.Green;
+                    }
+                    ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, "Refund ( " + (PrefixHelper.getTotalSpent(moddedPrefix.getNameAsTier()) / 2) + " tokens )", new Vector2(refundX - 50, refundY), c, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+                }
                 if (moddedPrefix == null || moddedPrefix.getNameAsTier() <= 39)
                 {
                     int reforgeX = slotX + 70;
                     int reforgeY = slotY + 40;
                     bool hoveringOverReforgeButton = Main.mouseX > reforgeX - 15 && Main.mouseX < reforgeX + 15 && Main.mouseY > reforgeY - 15 && Main.mouseY < reforgeY + 15 && !PlayerInput.IgnoreMouseInterface;
-                    ItemSlot.DrawSavings(Main.spriteBatch, slotX + 130, Main.instance.invBottom, true);
 
-                    ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, costText, new Vector2(slotX + 50, slotY), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
-                    ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, coinsText, new Vector2(slotX + 50 + Main.fontMouseText.MeasureString(costText).X, (float)slotY), Color.White, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+                    ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, upgradeCostText, new Vector2(slotX + 50, (float)slotY), Color.White, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+
 
                     Texture2D reforgeTexture = Main.reforgeTexture[hoveringOverReforgeButton ? 1 : 0];
 
@@ -126,9 +129,10 @@ namespace UpgradeEquipment.UI
                         }
                         tickPlayed = true;
                         Main.LocalPlayer.mouseInterface = true;
-                        if (Main.mouseLeftRelease && Main.mouseLeft && Main.LocalPlayer.CanBuyItem(awesomePrice, -1) && moddedPrefix.getNameAsTier() <= 39)
+                        if (Main.mouseLeftRelease && Main.mouseLeft && PrefixHelper.CanBuyUpgrade(awesomePrice) && moddedPrefix.getNameAsTier() <= 39)
                         {
-                            Main.LocalPlayer.BuyItem(awesomePrice, -1);
+                            int upgradeTokenIndex = Main.LocalPlayer.FindItem(ItemType<Items.UpgradeToken>());
+                            Main.LocalPlayer.inventory[upgradeTokenIndex].stack -= awesomePrice;
                             bool favorited = _vanillaItemSlot.Item.favorited;
                             int stack = _vanillaItemSlot.Item.stack;
                             Item reforgeItem = new Item();
@@ -171,7 +175,31 @@ namespace UpgradeEquipment.UI
                     ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, message, new Vector2(slotX + 50, slotY), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
                 }
 
+                if (hoveringOverRefundButton)
+                {
+                    Main.LocalPlayer.mouseInterface = true;
+                    if (Main.mouseLeftRelease && Main.mouseLeft)
+                    {
+                        int upgradeTokenIndex = Main.LocalPlayer.FindItem(ItemType<Items.UpgradeToken>());
+                        Main.LocalPlayer.inventory[upgradeTokenIndex].stack += PrefixHelper.getTotalSpent(moddedPrefix.getNameAsTier()) / 2;
+                        bool favorited = _vanillaItemSlot.Item.favorited;
+                        int stack = _vanillaItemSlot.Item.stack;
+                        Item reforgeItem = new Item();
+                        reforgeItem.netDefaults(_vanillaItemSlot.Item.netID);
+                        reforgeItem = reforgeItem.CloneWithModdedDataFrom(_vanillaItemSlot.Item);
 
+                        string nextTier = PrefixHelper.getNextTier(moddedPrefix);
+                        reforgeItem.Prefix(0);
+                        _vanillaItemSlot.Item = reforgeItem.Clone();
+                        _vanillaItemSlot.Item.position.X = Main.LocalPlayer.position.X + (float)(Main.LocalPlayer.width / 2) - (float)(_vanillaItemSlot.Item.width / 2);
+                        _vanillaItemSlot.Item.position.Y = Main.LocalPlayer.position.Y + (float)(Main.LocalPlayer.height / 2) - (float)(_vanillaItemSlot.Item.height / 2);
+                        _vanillaItemSlot.Item.favorited = favorited;
+                        _vanillaItemSlot.Item.stack = stack;
+                        ItemLoader.PostReforge(_vanillaItemSlot.Item);
+                        ItemText.NewText(_vanillaItemSlot.Item, _vanillaItemSlot.Item.stack, true, false);
+                        Main.PlaySound(SoundID.Item37, -1, -1);
+                    }
+                }
             }
             else
             {
