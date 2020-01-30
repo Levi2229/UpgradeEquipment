@@ -133,10 +133,9 @@ namespace UpgradeEquipment.UI
             return 0.05f + damageMult;
         }
 
-        internal static float getNegativeMult(int power)
+        internal static float getSpeedMult(int power)
         {
             float multiplier = 1f + 0.01f * power;
-            float negMult = 1f;
             if (power <= 10)
             {
                 multiplier = 1f + 0.005f * power;
@@ -155,8 +154,8 @@ namespace UpgradeEquipment.UI
             {
                 multiplier = 1f + 0.030f * power;
             }
-            negMult = (-multiplier + (2.005f + 0.018f * power)) - 0.05f;
-            return negMult - (opBonus / 3f) ;
+
+            return multiplier + (opBonus * 2f) ;
         }
 
         internal static float getVelocityMult(int power)
@@ -181,7 +180,7 @@ namespace UpgradeEquipment.UI
             {
                 multiplier = 1f + 0.030f * power;
             }
-            velMult = (multiplier + 0.03f * power) / 2 + (opBonus / 3f);
+            velMult = (multiplier + 0.03f * power) + (opBonus / 3f);
             return velMult;
         }
     }

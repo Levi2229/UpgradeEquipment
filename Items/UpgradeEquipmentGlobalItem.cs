@@ -1,65 +1,71 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.Utilities;
+using UpgradeEquipment.UI;
 using static Terraria.ModLoader.ModContent;
 
 namespace UpgradeEquipment.Items
 {
     public class UpgradeEquipmentGlobalItem : GlobalItem
     {
-        public string originalOwner;
         public byte upgradeTier;
-        public bool examplePersonFreeGift;
+
+        internal static bool disableSizeChange;
+        internal static bool disableKnockbackChange;
 
         public UpgradeEquipmentGlobalItem()
         {
-            originalOwner = "";
             upgradeTier = 0;
-        }
-
-        public override int ChoosePrefix(Item item, UnifiedRandom rand)
-        {
-            if ((item.accessory || item.damage > 0) && item.maxStack == 1 && rand.NextBool(30))
-            {
-                return mod.PrefixType(rand.Next(2) == 0 ? "+1 " : "+2 ");
-            }
-            return -1;
         }
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if (!item.social && item.prefix > 0)
+            if (upgradeTier > 0)
             {
-                int upgradeTierBonus = Main.cpItem.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier;
-                if (upgradeTierBonus > 0)
-                {
-                    TooltipLine line = new TooltipLine(mod, "upgradeTier", "Upgrade Tier " + upgradeTierBonus)
-                    {
-                        isModifier = true
-                    };
-                    tooltips.Add(line);
-                }
 
-            }
-            if (originalOwner.Length > 0)
-            {
-                TooltipLine line = new TooltipLine(mod, "CraftedBy", "Crafted by: " + originalOwner)
+                TooltipLine line = new TooltipLine(mod, "upgradeTier", "Upgrade Tier " + upgradeTier)
                 {
-                    overrideColor = Color.LimeGreen
+                    isModifier = true,
+                    overrideColor = Color.Firebrick
                 };
                 tooltips.Add(line);
 
-                /*foreach (TooltipLine line2 in tooltips)
-				{
-					if (line2.mod == "Terraria" && line2.Name == "ItemName")
-					{
-						line2.text = originalOwner + "'s " + line2.text;
-					}
-				}*/
+                float calcedDamageDisplay = 1f * (PrefixHelper.getDamageMult(upgradeTier) -1f ) * 100;
+
+                TooltipLine line2 = new TooltipLine(mod, "damage", "+" + calcedDamageDisplay + "% Damage")
+                {
+                    isModifier = true,
+                    overrideColor = Color.BlueViolet
+                };
+                tooltips.Add(line2);
+
+                float calcedSpeedDisplay = PrefixHelper.getSpeedMult(upgradeTier);
+
+                TooltipLine line3 = new TooltipLine(mod, "damage", "+" + (int)calcedSpeedDisplay + "% Speed")
+                {
+                    isModifier = true,
+                    overrideColor = Color.BlueViolet
+                };
+                tooltips.Add(line3);
+
+                TooltipLine line4 = new TooltipLine(mod, "crit", "+" + upgradeTier + "% Crit Chance")
+                {
+                    isModifier = true,
+                    overrideColor = Color.BlueViolet
+                };
+                tooltips.Add(line4);
+
+                TooltipLine line5 = new TooltipLine(mod, "crit", "+" + 1f * upgradeTier + "% Knockback")
+                {
+                    isModifier = true,
+                    overrideColor = Color.BlueViolet
+                };
+                tooltips.Add(line5);
             }
         }
 
@@ -68,51 +74,81 @@ namespace UpgradeEquipment.Items
         public override GlobalItem Clone(Item item, Item itemClone)
         {
             UpgradeEquipmentGlobalItem myClone = (UpgradeEquipmentGlobalItem)base.Clone(item, itemClone);
-            myClone.originalOwner = originalOwner;
             myClone.upgradeTier = upgradeTier;
-            myClone.examplePersonFreeGift = examplePersonFreeGift;
             return myClone;
         }
 
         public override void Load(Item item, TagCompound tag)
         {
-            originalOwner = tag.GetString("originalOwner");
-            examplePersonFreeGift = tag.GetBool(nameof(examplePersonFreeGift));
+            upgradeTier = tag.GetByte("upgradeTier");
         }
 
         public override bool NeedsSaving(Item item)
         {
-            return originalOwner.Length > 0 || examplePersonFreeGift;
+            return upgradeTier > 0;
         }
 
         public override TagCompound Save(Item item)
         {
             return new TagCompound {
-                {"originalOwner", originalOwner},
-                {nameof(examplePersonFreeGift), examplePersonFreeGift},
+                {"upgradeTier", upgradeTier},
             };
         }
 
-        public override void OnCraft(Item item, Recipe recipe)
+        // As a modder, you could also opt to make these overrides also sealed. Up to the modder
+        public override void ModifyWeaponDamage(Item item, Player player, ref float add, ref float mult, ref float flat)
         {
-            if (item.maxStack == 1)
+            mult *= PrefixHelper.getDamageMult(upgradeTier);
+            System.Console.WriteLine(mult +"");
+        }
+
+        public override void GetWeaponKnockback(Item item, Player player, ref float knockback)
+        {
+            // Adds knockback bonuses
+            if (!disableKnockbackChange && upgradeTier > 1)
             {
-                originalOwner = Main.LocalPlayer.name;
+                knockback *= 1f + 0.01f * upgradeTier;;
             }
+        }
+
+        public override float MeleeSpeedMultiplier(Item item, Player player)
+        {
+            if (PrefixHelper.getSpeedMult(upgradeTier) > 1f) {
+                float speedmult = PrefixHelper.getSpeedMult(upgradeTier);
+                return speedmult;
+            } else
+            {
+                return 1f;
+            }
+        }
+
+        public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
+        {
+            int ugt = weapon.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier;
+            speed = 1f * PrefixHelper.getVelocityMult(ugt) * 10;
+            weapon.shootSpeed = 1f * PrefixHelper.getSpeedMult(ugt) * 10;
+        }
+
+        public override void GetWeaponCrit(Item item, Player player, ref int crit)
+        {
+            // Adds crit bonuses
+            crit = upgradeTier;
+        }
+
+        public override bool PreDrawInWorld(Item item, SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+        {
+            scale = 1f + 0.01f * upgradeTier;
+            return true;
         }
 
         public override void NetSend(Item item, BinaryWriter writer)
         {
-            writer.Write(originalOwner);
             writer.Write(upgradeTier);
-            writer.Write(examplePersonFreeGift);
         }
 
         public override void NetReceive(Item item, BinaryReader reader)
         {
-            originalOwner = reader.ReadString();
             upgradeTier = reader.ReadByte();
-            examplePersonFreeGift = reader.ReadBoolean();
         }
     }
 }

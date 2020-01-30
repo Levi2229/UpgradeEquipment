@@ -62,9 +62,9 @@ namespace UpgradeEquipment.Prefixes
             float multiplier = 1f + 0.01f * _power;
             damageMult *= PrefixHelper.getDamageMult(_power);
 
-            if (PrefixHelper.getNegativeMult(_power) + 0.05f < 1f)
+            if (PrefixHelper.getSpeedMult(_power) + 0.05f < 1f)
             {
-                float negmult = PrefixHelper.getNegativeMult(_power);
+                float negmult = PrefixHelper.getSpeedMult(_power);
                 useTimeMult = negmult;
             }
             else
@@ -80,9 +80,9 @@ namespace UpgradeEquipment.Prefixes
                 shootSpeedMult = 1;
             }
             critBonus = (int)_power;
-            if (PrefixHelper.getNegativeMult(_power) + 0.05f < 1f)
+            if (PrefixHelper.getSpeedMult(_power) + 0.05f < 1f)
             {
-                manaMult = PrefixHelper.getNegativeMult(_power);
+                manaMult = PrefixHelper.getSpeedMult(_power);
             } else
             {
                 manaMult = 0.99f - (_power / 100f);

@@ -10,6 +10,7 @@ using Terraria.UI;
 using Terraria.UI.Chat;
 using static Terraria.ModLoader.ModContent;
 using UpgradeEquipment.Prefixes;
+using UpgradeEquipment.Items;
 
 namespace UpgradeEquipment.UI
 {
@@ -164,7 +165,7 @@ namespace UpgradeEquipment.UI
                                 canApplyDamageBonus = true;
                             }
 
-                            float manaMultPercentage = PrefixHelper.getNegativeMult(moddedPrefix.getNameAsTier());
+                            float manaMultPercentage = PrefixHelper.getSpeedMult(moddedPrefix.getNameAsTier());
                             bool canApplyManaBonus = false;
                             if (manaMultPercentage < 0.8f)
                             {
@@ -172,23 +173,7 @@ namespace UpgradeEquipment.UI
                             }
 
                             string nextTier = PrefixHelper.getNextTier(moddedPrefix);
-
-                            if (reforgeItem.melee && canApplyDamageBonus)
-                            {
-                                reforgeItem.Prefix(GetInstance<UpgradeEquipment>().PrefixType("melee " + nextTier));
-                            }
-                            if ((reforgeItem.ranged || isCalamityRogueItem) && canApplyDamageBonus)
-                            {
-                                reforgeItem.Prefix(GetInstance<UpgradeEquipment>().PrefixType("ranged " + nextTier));
-                            }
-                            if (reforgeItem.magic && canApplyDamageBonus && canApplyManaBonus)
-                            {
-                                reforgeItem.Prefix(GetInstance<UpgradeEquipment>().PrefixType("magic " + nextTier));
-                            }
-                            if (!canApplyDamageBonus || (reforgeItem.magic && !canApplyManaBonus))
-                            {
-                                reforgeItem.Prefix(GetInstance<UpgradeEquipment>().PrefixType(nextTier));
-                            }
+                            reforgeItem.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier += 1;
 
                             _vanillaItemSlot.Item = reforgeItem.Clone();
                             _vanillaItemSlot.Item.position.X = Main.LocalPlayer.position.X + (float)(Main.LocalPlayer.width / 2) - (float)(_vanillaItemSlot.Item.width / 2);
@@ -231,7 +216,7 @@ namespace UpgradeEquipment.UI
                         reforgeItem = reforgeItem.CloneWithModdedDataFrom(_vanillaItemSlot.Item);
 
                         string nextTier = PrefixHelper.getNextTier(moddedPrefix);
-                        reforgeItem.Prefix(0);
+                        reforgeItem.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier = 0;
                         _vanillaItemSlot.Item = reforgeItem.Clone();
                         _vanillaItemSlot.Item.position.X = Main.LocalPlayer.position.X + (float)(Main.LocalPlayer.width / 2) - (float)(_vanillaItemSlot.Item.width / 2);
                         _vanillaItemSlot.Item.position.Y = Main.LocalPlayer.position.Y + (float)(Main.LocalPlayer.height / 2) - (float)(_vanillaItemSlot.Item.height / 2);

@@ -15,6 +15,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 using Terraria.ModLoader.Config.UI;
 using Terraria.UI;
+using UpgradeEquipment.Items;
 using UpgradeEquipment.Prefixes;
 using UpgradeEquipment.UI;
 
@@ -50,7 +51,9 @@ namespace UpgradeEquipment
                 PrefixHelper.opBonus = 1f;
             }
             UpgradeEquipmentPrefixMelee.disableSizeChange = disableSizeChange;
+            UpgradeEquipmentGlobalItem.disableSizeChange = disableSizeChange;
             UpgradeEquipmentPrefixMelee.disableKnockbackChange = disableKnockbackChange;
+            UpgradeEquipmentGlobalItem.disableKnockbackChange = disableKnockbackChange;
         }
     }
 }
