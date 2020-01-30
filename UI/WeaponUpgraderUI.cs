@@ -75,7 +75,23 @@ namespace UpgradeEquipment.UI
 
             const int slotX = 50;
             const int slotY = 270;
-            if (!_vanillaItemSlot.Item.IsAir && (_vanillaItemSlot.Item.melee || _vanillaItemSlot.Item.ranged || _vanillaItemSlot.Item.magic))
+
+
+            Mod calamityMod = ModLoader.GetMod("CalamityMod");
+            bool isCalamityRogueItem = false;
+            if (calamityMod != null && _vanillaItemSlot.Item.modItem != null)
+            {
+                ModProperties mp = calamityMod.Properties;
+                string calamityTexturePath = _vanillaItemSlot.Item.modItem.Texture;
+                if(calamityTexturePath.Contains("Rogue"))
+                {
+                    isCalamityRogueItem = true;
+                }
+                // Add more items to the shop from Example Mod
+            }
+
+
+            if (!_vanillaItemSlot.Item.IsAir && (_vanillaItemSlot.Item.melee || _vanillaItemSlot.Item.ranged || _vanillaItemSlot.Item.magic || isCalamityRogueItem))
             {
                 Item item = _vanillaItemSlot.Item;
                 byte prefix = item.prefix;
@@ -140,19 +156,38 @@ namespace UpgradeEquipment.UI
                             reforgeItem = reforgeItem.CloneWithModdedDataFrom(_vanillaItemSlot.Item);
                             // This is the main effect of this slot. Giving the Awesome prefix 90% of the time and the ReallyAwesome prefix the other 10% of the time. All for a constant 1 gold. Useless, but informative.
 
+                            float damageMultPercentage = (PrefixHelper.getDamageMult(moddedPrefix.getNameAsTier()) - 1);
+                            float damageBoostFromMultiplier = item.damage * (1f + damageMultPercentage) - item.damage;
+                            bool canApplyDamageBonus = false;
+                            if (damageBoostFromMultiplier > 1)
+                            {
+                                canApplyDamageBonus = true;
+                            }
+
+                            float manaMultPercentage = PrefixHelper.getNegativeMult(moddedPrefix.getNameAsTier());
+                            bool canApplyManaBonus = false;
+                            if (manaMultPercentage < 0.8f)
+                            {
+                                canApplyManaBonus = true;
+                            }
 
                             string nextTier = PrefixHelper.getNextTier(moddedPrefix);
-                            if (reforgeItem.melee)
+
+                            if (reforgeItem.melee && canApplyDamageBonus)
                             {
                                 reforgeItem.Prefix(GetInstance<UpgradeEquipment>().PrefixType("melee " + nextTier));
                             }
-                            if (reforgeItem.ranged)
+                            if ((reforgeItem.ranged || isCalamityRogueItem) && canApplyDamageBonus)
                             {
                                 reforgeItem.Prefix(GetInstance<UpgradeEquipment>().PrefixType("ranged " + nextTier));
                             }
-                            if (reforgeItem.magic)
+                            if (reforgeItem.magic && canApplyDamageBonus && canApplyManaBonus)
                             {
                                 reforgeItem.Prefix(GetInstance<UpgradeEquipment>().PrefixType("magic " + nextTier));
+                            }
+                            if (!canApplyDamageBonus || (reforgeItem.magic && !canApplyManaBonus))
+                            {
+                                reforgeItem.Prefix(GetInstance<UpgradeEquipment>().PrefixType(nextTier));
                             }
 
                             _vanillaItemSlot.Item = reforgeItem.Clone();
@@ -175,7 +210,7 @@ namespace UpgradeEquipment.UI
                     ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, message, new Vector2(slotX + 50, slotY), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
                 }
 
-                if (hoveringOverRefundButton)
+                if (hoveringOverRefundButton && moddedPrefix.getNameAsTier() > 0)
                 {
                     Main.LocalPlayer.mouseInterface = true;
                     if (Main.mouseLeftRelease && Main.mouseLeft)

@@ -20,20 +20,20 @@ namespace UpgradeEquipment.NPCs
             {
                 if (npc.type == NPCID.TheDestroyer)
                 {
-                    Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), 120);
+                    Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), 60);
                 }
                 else if (npc.type == NPCID.EaterofWorldsHead)
                 {
-                    Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), 20);
+                    Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), 15);
                 }
                 else
                 {
-                    Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), Main.rand.Next(npc.lifeMax / 750, npc.lifeMax / 600));
+                    Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), Main.rand.Next(npc.lifeMax / 900, npc.lifeMax / 800));
                 }
             }
             else if (Main.rand.Next(10) == 0 && npc.lifeMax >= 1000 && npc.modNPC == null)
             {
-                Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), Main.rand.Next(npc.lifeMax / 750, npc.lifeMax / 600));
+                Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), Main.rand.Next(npc.lifeMax / 900, npc.lifeMax / 800));
             }
             else if(Main.rand.Next(100) == 0 && npc.lifeMax >= 75 && npc.modNPC == null)
             {
@@ -41,11 +41,11 @@ namespace UpgradeEquipment.NPCs
             }
             else if (Main.rand.Next(100) == 0 && npc.lifeMax >= 15000 && npc.modNPC != null)
             {
-                Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), Main.rand.Next(npc.lifeMax / 1050, npc.lifeMax / 900));
+                Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), Main.rand.Next(npc.lifeMax / 1250, npc.lifeMax / 1100));
             }
             else if (Main.rand.Next(100) == 0 && npc.lifeMax >= 5000 && npc.modNPC != null)
             {
-                Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), Main.rand.Next(npc.lifeMax / 750, npc.lifeMax / 600));
+                Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), Main.rand.Next(npc.lifeMax / 900, npc.lifeMax / 800));
             }
             else if (Main.rand.Next(60) == 0 && npc.lifeMax >= 1000 && npc.modNPC != null)
             {

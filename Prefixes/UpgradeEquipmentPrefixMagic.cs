@@ -2,12 +2,14 @@
 using Terraria;
 using Terraria.ModLoader;
 using System;
+using UpgradeEquipment.UI;
 
 namespace UpgradeEquipment.Prefixes
 {
     class UpgradeEquipmentPrefixMagic : ModPrefix
     {
         private readonly byte _power;
+        Item _item;
 
         public UpgradeEquipmentPrefixMagic()
         {
@@ -18,10 +20,16 @@ namespace UpgradeEquipment.Prefixes
             _power = power;
         }
 
+        public override float RollChance(Item item)
+        {
+            return 0f;
+        }
+
         // determines if it can roll at all.
         // use this to control if a prefixes can be rolled or not
         public override bool CanRoll(Item item)
         {
+            _item = item;
             if (item.magic)
             {
                 return true;
@@ -45,22 +53,51 @@ namespace UpgradeEquipment.Prefixes
         }
 
         public override void Apply(Item item)
-            => item.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier = _power;
+        {
+            item.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier = _power;
+        }
 
         public override void SetStats(ref float damageMult, ref float knockbackMult, ref float useTimeMult, ref float scaleMult, ref float shootSpeedMult, ref float manaMult, ref int critBonus)
         {
-            float multiplier = 1f + 0.06f * _power;
-            damageMult *= multiplier * 1.3f;
-            useTimeMult = 1 - Convert.ToSingle(Math.Sqrt(multiplier)) /6;
-            shootSpeedMult *= multiplier /2;
+            float multiplier = 1f + 0.01f * _power;
+            damageMult *= PrefixHelper.getDamageMult(_power);
+
+            if (PrefixHelper.getNegativeMult(_power) + 0.05f < 1f)
+            {
+                float negmult = PrefixHelper.getNegativeMult(_power);
+                useTimeMult = negmult;
+            }
+            else
+            {
+                useTimeMult = 0.90f - (_power / 100f);
+            }
+            if (PrefixHelper.getVelocityMult(_power) > 1)
+            {
+                shootSpeedMult *= PrefixHelper.getVelocityMult(_power);
+            }
+            else
+            {
+                shootSpeedMult = 1;
+            }
             critBonus = (int)_power;
-            manaMult = 1 - Convert.ToSingle(Math.Sqrt(multiplier)) / 4;
+            if (PrefixHelper.getNegativeMult(_power) + 0.05f < 1f)
+            {
+                manaMult = PrefixHelper.getNegativeMult(_power);
+            } else
+            {
+                manaMult = 0.99f - (_power / 100f);
+            }
         }
 
         public override void ModifyValue(ref float valueMult)
         {
             float multiplier = _power / 7f + 1f;
             valueMult = multiplier;
+        }
+
+        public override void ValidateItem(Item item, ref bool invalid)
+        {
+            invalid = false;
         }
     }
 }

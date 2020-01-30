@@ -2,12 +2,14 @@
 using Terraria;
 using Terraria.ModLoader;
 using System;
+using UpgradeEquipment.UI;
 
 namespace UpgradeEquipment.Prefixes
 {
     class UpgradeEquipmentPrefixRanged : ModPrefix
     {
         private readonly byte _power;
+        Item _item;
 
         public UpgradeEquipmentPrefixRanged()
         {
@@ -22,6 +24,7 @@ namespace UpgradeEquipment.Prefixes
         // use this to control if a prefixes can be rolled or not
         public override bool CanRoll(Item item)
         {
+            _item = item;
             if (item.ranged)
             {
                 return true;
@@ -49,12 +52,26 @@ namespace UpgradeEquipment.Prefixes
 
         public override void SetStats(ref float damageMult, ref float knockbackMult, ref float useTimeMult, ref float scaleMult, ref float shootSpeedMult, ref float manaMult, ref int critBonus)
         {
-            float multiplier = 1f + 0.06f * _power;
-            damageMult *= multiplier * 1.3f;
-            useTimeMult = 1 - Convert.ToSingle(Math.Sqrt(multiplier)) / 8;
-            if(multiplier /2 > 1)
+            float multiplier = 1f + 0.01f * _power;
+            damageMult *= PrefixHelper.getDamageMult(_power);
+
+            useTimeMult = 1 - Convert.ToSingle(Math.Sqrt(multiplier)) / 4;
+            if (PrefixHelper.getVelocityMult(_power) > 1)
             {
-                shootSpeedMult *= multiplier / 2;
+                shootSpeedMult *= PrefixHelper.getVelocityMult(_power);
+            }
+            else
+            {
+                shootSpeedMult = 1;
+            }
+            if (PrefixHelper.getNegativeMult(_power) + 0.05f < 1f)
+            {
+                float negmult = PrefixHelper.getNegativeMult(_power);
+                useTimeMult = negmult;
+            }
+            else
+            {
+                useTimeMult = 0.90f - (_power / 100f);
             }
             critBonus = (int)_power;
         }
@@ -63,6 +80,11 @@ namespace UpgradeEquipment.Prefixes
         {
             float multiplier = _power / 7f + 1f;
             valueMult = multiplier;
+        }
+
+        public override void ValidateItem(Item item, ref bool invalid)
+        {
+            invalid = false;
         }
     }
 }

@@ -1,10 +1,17 @@
--- Thank you so much for hitting 10,000 downloads! -- 
+-- Thank you so much for hitting 12,000 downloads! -- 
 
 Upgrade Equipment is a mod that alllows you to upgrade your weapons sequentially. from +1, +2.. all the way up to +40. This is done with the help of a new NPC that can spawn from the beginning.
 The upgrades currently work for most ranged/mage/melee weapons. I will focus on adding mod support for other classes later.
 You can configure some values if you feel they might be annoying, such as size and knockback.
 
 Release notes:
+
+Release 0.4
+
+- Rebalanced drops and prices.
+- made all weapon type items upgradeable.
+- If an item is too weak to get a +melee/ranged/magic upgrade it will now get a generic + upgrade.
+- added config setting that makes upgrades overpowered.
 
 Release 0.3.1
 
@@ -24,7 +31,7 @@ Release 0.1:
 - Added NPC to allow you to upgrade weapons.
 
 NOTE:
-This cannot be combined with other forms of prefixes or modifiers.
+This mod cannot be combined with other forms of prefixes or modifiers.
 Does not work on accessories.
 
 Known bugs:

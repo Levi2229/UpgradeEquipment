@@ -37,11 +37,18 @@ namespace UpgradeEquipment
         [Label("Disable weapon knockback upgrading.")]
         public bool disableKnockbackChange;
 
+        [Label("Make upgrades overpowered - Not balanced and might break the game")]
+        public bool overpoweredUpgrades;
+
         public override void OnChanged()
         {
             // Here we use the OnChanged hook to initialize ExampleUI.visible with the new values.
             // We maintain both ExampleUI.visible and ShowCoinUI as separate values so ShowCoinUI can act as a default while ExampleUI.visible can change within a play session.
-            PrefixHelper.reducedValues = true;
+            PrefixHelper.reducedValues = reduceValues;
+            if (overpoweredUpgrades)
+            {
+                PrefixHelper.opBonus = 1f;
+            }
             UpgradeEquipmentPrefixMelee.disableSizeChange = disableSizeChange;
             UpgradeEquipmentPrefixMelee.disableKnockbackChange = disableKnockbackChange;
         }
