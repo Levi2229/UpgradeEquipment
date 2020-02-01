@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -207,6 +208,28 @@ namespace UpgradeEquipment.UI
             }
             negMult = (-multiplier + (2.005f + 0.018f * power)) - 0.05f;
             return negMult - (opBonus / 3f);
+        }
+
+        internal static Color getTierColor(int tier)
+        {
+            Color tierColor = new Color(186, 186, 186);
+            if (tier > 10)
+            {
+                tierColor = new Color(68, 131, 220);
+            }
+            if (tier > 20)
+            {
+                tierColor = new Color(229, 172, 82);
+            }
+            if (tier > 30)
+            {
+                tierColor = new Color(222, 111, 228);
+            }
+            if (tier >= 35)
+            {
+                tierColor = new Color(222, 67, 58);
+            }
+            return tierColor;
         }
     }
 }

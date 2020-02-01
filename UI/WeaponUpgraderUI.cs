@@ -186,20 +186,16 @@ namespace UpgradeEquipment.UI
                             Main.LocalPlayer.inventory[upgradeTokenIndex].stack -= awesomePrice;
                             bool favorited = _vanillaItemSlot.Item.favorited;
                             int stack = _vanillaItemSlot.Item.stack;
-                            Item reforgeItem = new Item();
-                            reforgeItem.netDefaults(_vanillaItemSlot.Item.netID);
-                            reforgeItem = reforgeItem.CloneWithModdedDataFrom(_vanillaItemSlot.Item);
                             // This is the main effect of this slot. Giving the Awesome prefix 90% of the time and the ReallyAwesome prefix the other 10% of the time. All for a constant 1 gold. Useless, but informative.
 
-                            reforgeItem.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier += 1;
+                            _vanillaItemSlot.Item.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier += 1;
 
-                            _vanillaItemSlot.Item = reforgeItem.Clone();
                             _vanillaItemSlot.Item.position.X = Main.LocalPlayer.position.X + (float)(Main.LocalPlayer.width / 2) - (float)(_vanillaItemSlot.Item.width / 2);
                             _vanillaItemSlot.Item.position.Y = Main.LocalPlayer.position.Y + (float)(Main.LocalPlayer.height / 2) - (float)(_vanillaItemSlot.Item.height / 2);
                             _vanillaItemSlot.Item.favorited = favorited;
                             _vanillaItemSlot.Item.stack = stack;
                             ItemLoader.PostReforge(_vanillaItemSlot.Item);
-                            ItemText.NewText(_vanillaItemSlot.Item, _vanillaItemSlot.Item.stack, true, false);
+                            CombatText.NewText(new Rectangle((int)Main.LocalPlayer.position.X, (int)Main.LocalPlayer.position.Y, 5, 0), PrefixHelper.getTierColor(upgradeTier), _vanillaItemSlot.Item.Name + " + " + (upgradeTier + 1), false, false);
                             Main.PlaySound(SoundID.Item37, -1, -1);
                         }
                     }
@@ -228,18 +224,14 @@ namespace UpgradeEquipment.UI
                             Main.LocalPlayer.inventory[upgradeTokenIndex].stack += PrefixHelper.getTotalSpent(upgradeTier) / 2;
                         }
                         bool favorited = _vanillaItemSlot.Item.favorited;
-                        int stack = _vanillaItemSlot.Item.stack;
-                        Item reforgeItem = new Item();
-                        reforgeItem.netDefaults(_vanillaItemSlot.Item.netID);
-                        reforgeItem = reforgeItem.CloneWithModdedDataFrom(_vanillaItemSlot.Item);
 
-                        reforgeItem.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier = 0;
-                        _vanillaItemSlot.Item = reforgeItem.Clone();
+                        _vanillaItemSlot.Item.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier = 0;
+
                         _vanillaItemSlot.Item.position.X = Main.LocalPlayer.position.X + (float)(Main.LocalPlayer.width / 2) - (float)(_vanillaItemSlot.Item.width / 2);
                         _vanillaItemSlot.Item.position.Y = Main.LocalPlayer.position.Y + (float)(Main.LocalPlayer.height / 2) - (float)(_vanillaItemSlot.Item.height / 2);
                         _vanillaItemSlot.Item.favorited = favorited;
-                        _vanillaItemSlot.Item.stack = stack;
-                        ItemText.NewText(_vanillaItemSlot.Item, _vanillaItemSlot.Item.stack, true, false);
+
+                        CombatText.NewText(new Rectangle((int)Main.LocalPlayer.position.X, (int)Main.LocalPlayer.position.Y, 5, 0), Color.White,  " + " + (PrefixHelper.getTotalSpent(upgradeTier) / 2) + " Upgrade Tokens", false, false);
                         Main.PlaySound(SoundID.Item37, -1, -1);
                     }
                 }

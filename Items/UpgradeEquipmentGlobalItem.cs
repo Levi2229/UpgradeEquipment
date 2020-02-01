@@ -58,23 +58,7 @@ namespace UpgradeEquipment.Items
         {
             if (upgradeTier > 0)
             {
-                Color tierColor = new Color(186, 186, 186);
-                if (upgradeTier > 10)
-                {
-                    tierColor = new Color(68, 131, 220);
-                }
-                if (upgradeTier > 20)
-                {
-                    tierColor = new Color(229, 172, 82);
-                }
-                if (upgradeTier > 30)
-                {
-                    tierColor = new Color(222, 111, 228);
-                }
-                if (upgradeTier >= 35)
-                {
-                    tierColor = new Color(222, 67, 58);
-                }
+
 
                 int ugt = item.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier;
                 float _initialManaCost = item.GetGlobalItem<UpgradeEquipmentGlobalItem>().initialManaCost;
@@ -94,7 +78,7 @@ namespace UpgradeEquipment.Items
                 TooltipLine line = new TooltipLine(mod, "upgradeTier", "Upgrade Tier " + upgradeTier)
                 {
                     isModifier = true,
-                    overrideColor = tierColor
+                    overrideColor = PrefixHelper.getTierColor(upgradeTier),
                 };
                 tooltips.Add(line);
 
@@ -109,7 +93,7 @@ namespace UpgradeEquipment.Items
 
                 float calcedVelocityDisplay = (PrefixHelper.getVelocityMult(upgradeTier) -1f) * 100;
 
-                if (!item.melee || item.shootSpeed > 0)
+                if ((!item.melee || item.shootSpeed > 0) && Math.Round(calcedVelocityDisplay) > 0)
                 {
                     TooltipLine line3 = new TooltipLine(mod, "velocity", "+" + Math.Round(calcedVelocityDisplay) + "% Velocity")
                     {

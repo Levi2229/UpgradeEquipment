@@ -6,6 +6,10 @@ You can configure some values if you feel they might be annoying, such as size a
 
 Release notes:
 
+Release 1.0.1:
+- Fixed bug that would reset the prefix if you refunded or upgraded an item.
+- Now displaying more accurate text on item upgrade/refund.
+
 Release 1.0
 - Reworked entire upgrade system so it doesn't use prefixes anymore.
 - Prefixes can now be combined with upgrades from this mod.
