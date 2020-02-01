@@ -55,30 +55,46 @@ namespace UpgradeEquipment.NPCs
                 switch (WorldGen.genRand.Next(4))
                 {
                     case 0:
-                        return "Weaporino";
+                        return "Goblin Dinkerer";
                     case 1:
                         return "Upgrademundo";
                     case 2:
-                        return "Up Yours";
+                        return "Upyours";
                     default:
                         return "Equipmentino";
                 }
             }
 
-            public override string GetChat()
+        public override string GetChat()
+        {
+            if (Main.rand.Next(2)==0)
             {
-                switch (Main.rand.Next(4))
-                {
-                    case 0:
-                        return "You ever smack a bat with a +40? It feels great.";
-                    case 1:
-                        return "Upgrading became pretty cheap, atleast after my wife left me.";
-                    case 2:
-                        return "I don't trust that Tinkerer guy, he's ripping us off.";
-                    default:
-                        return "I see you're quite poor, but +1 is better then + none, keep it up!";
-                }
+                return getRandomChatMessage();
+
+            } else
+            {
+                return getRandomChatMessage();
             }
+        }
+
+        private string getRandomChatMessage()
+        {
+            switch (Main.rand.Next(6))
+            {
+                case 0:
+                    return "You ever smack a bat with a +40? It feels great.";
+                case 1:
+                    return "Upgrading became pretty cheap after my wife left me.";
+                case 2:
+                    return "I don't trust that Tinkerer guy, he's been ripping us off.";
+                case 3:
+                    return "If +40 isn't enough for you, you can change the limit to 255 in the configuration of this mod.";
+                case 4:
+                    return "I will refund half of your spent tokens for any items that have +6 or higher!";
+                default:
+                    return "I see you're quite poor, but +1 is better then + none";
+            }
+        }
 
         public override bool CanTownNPCSpawn(int numTownNPCs, int money)
         {

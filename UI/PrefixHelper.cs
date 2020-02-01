@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using static Terraria.ModLoader.ModContent;
-using UpgradeEquipment.Prefixes;
 
 namespace UpgradeEquipment.UI
 {
@@ -28,7 +27,7 @@ namespace UpgradeEquipment.UI
             return new WeaponUpgraderPrefix(prefix, true, price);
         }
 
-        private static int determinePriceForNextUpgrade(int upgradeLevel)
+        public static int determinePriceForNextUpgrade(int upgradeLevel)
         {
             int total = 1;
             total = (int)(upgradeLevel + Convert.ToSingle((Math.Pow(upgradeLevel, 2))));
@@ -97,7 +96,7 @@ namespace UpgradeEquipment.UI
         internal static int getTotalSpent(int upgradeTier)
         {
             int totalSpent = 0;
-            for(int i = 1; i < upgradeTier+1; i++)
+            for(int i = 0; i < upgradeTier; i++)
             {
                 totalSpent += determinePriceForNextUpgrade(i);
             }
@@ -138,21 +137,21 @@ namespace UpgradeEquipment.UI
             float multiplier = 1f + 0.01f * power;
             if (power <= 10)
             {
-                multiplier = 1f + 0.005f * power;
+                multiplier = 1f + 0.003f * power;
             }
             if (power > 10 && power <= 20)
             {
-                multiplier = 1f + 0.008f * power;
+                multiplier = 1f + 0.005f * power;
             }
 
             if (power > 20 && power <= 30)
             {
-                multiplier = 1f + 0.025f * power;
+                multiplier = 1f + 0.01f * power;
             }
 
             if (power > 30)
             {
-                multiplier = 1f + 0.030f * power;
+                multiplier = 1f + 0.016f * power;
             }
 
             return multiplier + (opBonus * 2f) ;
@@ -162,6 +161,32 @@ namespace UpgradeEquipment.UI
         {
             float multiplier = 1.03f + 0.01f * power;
             float velMult = 1f;
+            if (power <= 10)
+            {
+                multiplier = 1f + 0.002f * power;
+            }
+            if (power > 10 && power <= 20)
+            {
+                multiplier = 1f + 0.004f * power;
+            }
+
+            if (power > 20 && power <= 30)
+            {
+                multiplier = 1f + 0.008f * power;
+            }
+
+            if (power > 30)
+            {
+                multiplier = 1f + 0.01f * power;
+            }
+            velMult = multiplier + (opBonus / 3f);
+            return velMult;
+        }
+
+        internal static float getNegativeMult(int power)
+        {
+            float multiplier = 1f + 0.01f * power;
+            float negMult = 1f;
             if (power <= 10)
             {
                 multiplier = 1f + 0.005f * power;
@@ -180,8 +205,8 @@ namespace UpgradeEquipment.UI
             {
                 multiplier = 1f + 0.030f * power;
             }
-            velMult = (multiplier + 0.03f * power) + (opBonus / 3f);
-            return velMult;
+            negMult = (-multiplier + (2.005f + 0.018f * power)) - 0.05f;
+            return negMult - (opBonus / 3f);
         }
     }
 }

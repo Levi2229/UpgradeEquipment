@@ -16,7 +16,6 @@ using Terraria.ModLoader.Config;
 using Terraria.ModLoader.Config.UI;
 using Terraria.UI;
 using UpgradeEquipment.Items;
-using UpgradeEquipment.Prefixes;
 using UpgradeEquipment.UI;
 
 namespace UpgradeEquipment
@@ -29,9 +28,6 @@ namespace UpgradeEquipment
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
 
-        [Label("Reduce the values of the item upgrader. warning: less balanced")]
-        public bool reduceValues;
-
         [Label("Disable weapon size upgrading. Recommended for combining with WeaponsOut mod.")]
         public bool disableSizeChange;
 
@@ -41,6 +37,12 @@ namespace UpgradeEquipment
         [Label("Make upgrades overpowered - Not balanced and might break the game")]
         public bool overpoweredUpgrades;
 
+        [Label("Reduce the values of the item upgrader. warning: less balanced")]
+        public bool reduceValues;
+
+        [Label("Remove the +40 limit, you can now upgrade to +255")]
+        public bool removeTierCap;
+
         public override void OnChanged()
         {
             // Here we use the OnChanged hook to initialize ExampleUI.visible with the new values.
@@ -49,11 +51,19 @@ namespace UpgradeEquipment
             if (overpoweredUpgrades)
             {
                 PrefixHelper.opBonus = 1f;
+            } else
+            {
+                PrefixHelper.opBonus = 0f;
             }
-            UpgradeEquipmentPrefixMelee.disableSizeChange = disableSizeChange;
             UpgradeEquipmentGlobalItem.disableSizeChange = disableSizeChange;
-            UpgradeEquipmentPrefixMelee.disableKnockbackChange = disableKnockbackChange;
             UpgradeEquipmentGlobalItem.disableKnockbackChange = disableKnockbackChange;
+            if (removeTierCap)
+            {
+                WeaponUpgraderUI.tierCap = 255;
+            } else
+            {
+                WeaponUpgraderUI.tierCap = 40;
+            }
         }
     }
 }

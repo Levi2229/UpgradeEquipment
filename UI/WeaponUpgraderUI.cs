@@ -9,7 +9,6 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using static Terraria.ModLoader.ModContent;
-using UpgradeEquipment.Prefixes;
 using UpgradeEquipment.Items;
 
 namespace UpgradeEquipment.UI
@@ -18,6 +17,8 @@ namespace UpgradeEquipment.UI
     internal class WeaponUpgraderUI : UIState
     {
         private VanillaItemSlotWrapper _vanillaItemSlot;
+
+        internal static int tierCap;
 
         public override void OnInitialize()
         {
@@ -80,6 +81,7 @@ namespace UpgradeEquipment.UI
 
             Mod calamityMod = ModLoader.GetMod("CalamityMod");
             bool isCalamityRogueItem = false;
+
             if (calamityMod != null && _vanillaItemSlot.Item.modItem != null)
             {
                 ModProperties mp = calamityMod.Properties;
@@ -91,15 +93,47 @@ namespace UpgradeEquipment.UI
                 // Add more items to the shop from Example Mod
             }
 
+            Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+            bool isThoriumBardItem = false;
+            bool isThoriumThrownItem = false;
+            if (thoriumMod != null && _vanillaItemSlot.Item.modItem != null)
+            {
+                ModProperties mp = thoriumMod.Properties;
+                string thoriumTexturePath = _vanillaItemSlot.Item.modItem.Texture;
+                if (thoriumTexturePath.Contains("ThrownItems"))
+                {
+                    isThoriumThrownItem = true;
+                }
+                if (thoriumTexturePath.Contains("BardItems"))
+                {
+                    isThoriumBardItem = true;
+                }
+                // Add more items to the shop from Example Mod
+            }
 
-            if (!_vanillaItemSlot.Item.IsAir && (_vanillaItemSlot.Item.melee || _vanillaItemSlot.Item.ranged || _vanillaItemSlot.Item.magic || isCalamityRogueItem))
+
+            if (!_vanillaItemSlot.Item.IsAir &&
+                (_vanillaItemSlot.Item.melee ||
+                _vanillaItemSlot.Item.ranged ||
+                _vanillaItemSlot.Item.magic ||
+                isCalamityRogueItem ||
+                _vanillaItemSlot.Item.summon ||
+                isThoriumBardItem ||
+                isThoriumThrownItem))
             {
                 Item item = _vanillaItemSlot.Item;
                 byte prefix = item.prefix;
+                int upgradeTier;
+                UpgradeEquipmentGlobalItem globalitem = item.GetGlobalItem<UpgradeEquipmentGlobalItem>();
+                if (globalitem != null)
+                {
+                    upgradeTier  = globalitem.upgradeTier;
+                } else
+                {
+                    upgradeTier = 0;
+                }
 
-                WeaponUpgraderPrefix moddedPrefix = PrefixHelper.FindCurrentPrefix(item.HoverName, item.Name);
-
-                int awesomePrice = moddedPrefix.price;
+                int awesomePrice = PrefixHelper.determinePriceForNextUpgrade(globalitem.upgradeTier);
 
                 string upgradeCostText = "";
 
@@ -116,16 +150,16 @@ namespace UpgradeEquipment.UI
                     c = Color.Green;
                 }
 
-                if (moddedPrefix.getNameAsTier() > 5)
+                if (upgradeTier > 5)
                 {
                     hoveringOverRefundButton = Main.mouseX > refundX - 55 && Main.mouseX < refundX + 125 && Main.mouseY > refundY - 5 && Main.mouseY < refundY + 20 && !PlayerInput.IgnoreMouseInterface;
                     if (hoveringOverRefundButton)
                     {
                         c = Color.Green;
                     }
-                    ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, "Refund ( " + (PrefixHelper.getTotalSpent(moddedPrefix.getNameAsTier()) / 2) + " tokens )", new Vector2(refundX - 50, refundY), c, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+                    ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, "Refund ( " + (PrefixHelper.getTotalSpent(upgradeTier) / 2) + " tokens )", new Vector2(refundX - 50, refundY), c, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
                 }
-                if (moddedPrefix == null || moddedPrefix.getNameAsTier() <= 39)
+                if (globalitem != null && upgradeTier < tierCap)
                 {
                     int reforgeX = slotX + 70;
                     int reforgeY = slotY + 40;
@@ -146,7 +180,7 @@ namespace UpgradeEquipment.UI
                         }
                         tickPlayed = true;
                         Main.LocalPlayer.mouseInterface = true;
-                        if (Main.mouseLeftRelease && Main.mouseLeft && PrefixHelper.CanBuyUpgrade(awesomePrice) && moddedPrefix.getNameAsTier() <= 39)
+                        if (Main.mouseLeftRelease && Main.mouseLeft && PrefixHelper.CanBuyUpgrade(awesomePrice) && upgradeTier < tierCap)
                         {
                             int upgradeTokenIndex = Main.LocalPlayer.FindItem(ItemType<Items.UpgradeToken>());
                             Main.LocalPlayer.inventory[upgradeTokenIndex].stack -= awesomePrice;
@@ -157,22 +191,6 @@ namespace UpgradeEquipment.UI
                             reforgeItem = reforgeItem.CloneWithModdedDataFrom(_vanillaItemSlot.Item);
                             // This is the main effect of this slot. Giving the Awesome prefix 90% of the time and the ReallyAwesome prefix the other 10% of the time. All for a constant 1 gold. Useless, but informative.
 
-                            float damageMultPercentage = (PrefixHelper.getDamageMult(moddedPrefix.getNameAsTier()) - 1);
-                            float damageBoostFromMultiplier = item.damage * (1f + damageMultPercentage) - item.damage;
-                            bool canApplyDamageBonus = false;
-                            if (damageBoostFromMultiplier > 1)
-                            {
-                                canApplyDamageBonus = true;
-                            }
-
-                            float manaMultPercentage = PrefixHelper.getSpeedMult(moddedPrefix.getNameAsTier());
-                            bool canApplyManaBonus = false;
-                            if (manaMultPercentage < 0.8f)
-                            {
-                                canApplyManaBonus = true;
-                            }
-
-                            string nextTier = PrefixHelper.getNextTier(moddedPrefix);
                             reforgeItem.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier += 1;
 
                             _vanillaItemSlot.Item = reforgeItem.Clone();
@@ -195,7 +213,7 @@ namespace UpgradeEquipment.UI
                     ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, message, new Vector2(slotX + 50, slotY), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
                 }
 
-                if (hoveringOverRefundButton && moddedPrefix.getNameAsTier() > 0)
+                if (hoveringOverRefundButton && upgradeTier > 0)
                 {
                     Main.LocalPlayer.mouseInterface = true;
                     if (Main.mouseLeftRelease && Main.mouseLeft)
@@ -203,11 +221,11 @@ namespace UpgradeEquipment.UI
                         int upgradeTokenIndex = Main.LocalPlayer.FindItem(ItemType<Items.UpgradeToken>());
                         if (upgradeTokenIndex == -1)
                         {
-                            Item.NewItem(Main.LocalPlayer.getRect(), ItemType<Items.UpgradeToken>(), (PrefixHelper.getTotalSpent(moddedPrefix.getNameAsTier()) / 2));
+                            Item.NewItem(Main.LocalPlayer.getRect(), ItemType<Items.UpgradeToken>(), (PrefixHelper.getTotalSpent(upgradeTier) / 2));
                         }
                         else
                         {
-                            Main.LocalPlayer.inventory[upgradeTokenIndex].stack += PrefixHelper.getTotalSpent(moddedPrefix.getNameAsTier()) / 2;
+                            Main.LocalPlayer.inventory[upgradeTokenIndex].stack += PrefixHelper.getTotalSpent(upgradeTier) / 2;
                         }
                         bool favorited = _vanillaItemSlot.Item.favorited;
                         int stack = _vanillaItemSlot.Item.stack;
@@ -215,14 +233,12 @@ namespace UpgradeEquipment.UI
                         reforgeItem.netDefaults(_vanillaItemSlot.Item.netID);
                         reforgeItem = reforgeItem.CloneWithModdedDataFrom(_vanillaItemSlot.Item);
 
-                        string nextTier = PrefixHelper.getNextTier(moddedPrefix);
                         reforgeItem.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier = 0;
                         _vanillaItemSlot.Item = reforgeItem.Clone();
                         _vanillaItemSlot.Item.position.X = Main.LocalPlayer.position.X + (float)(Main.LocalPlayer.width / 2) - (float)(_vanillaItemSlot.Item.width / 2);
                         _vanillaItemSlot.Item.position.Y = Main.LocalPlayer.position.Y + (float)(Main.LocalPlayer.height / 2) - (float)(_vanillaItemSlot.Item.height / 2);
                         _vanillaItemSlot.Item.favorited = favorited;
                         _vanillaItemSlot.Item.stack = stack;
-                        ItemLoader.PostReforge(_vanillaItemSlot.Item);
                         ItemText.NewText(_vanillaItemSlot.Item, _vanillaItemSlot.Item.stack, true, false);
                         Main.PlaySound(SoundID.Item37, -1, -1);
                     }

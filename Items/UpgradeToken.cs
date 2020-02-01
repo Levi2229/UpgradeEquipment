@@ -20,7 +20,9 @@ namespace UpgradeEquipment.Items
         public override void SetDefaults()
         {
             item.value = 50;
-            item.maxStack = 9999;
+            item.maxStack = 99999;
+            item.width = 25;
+            item.height = 25;
         }
     }
 }

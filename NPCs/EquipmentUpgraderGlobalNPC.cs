@@ -14,7 +14,7 @@ namespace UpgradeEquipment.NPCs
              Random random = new Random();
             if (npc.type == NPCID.MoonLordCore)
             {
-                Item.NewItem(Main.LocalPlayer.getRect(), ItemType<Items.UpgradeToken>(), 350);
+                Item.NewItem(Main.LocalPlayer.getRect(), ItemType<Items.UpgradeToken>(), 200);
             }
             if (npc.boss)
             {
@@ -28,12 +28,22 @@ namespace UpgradeEquipment.NPCs
                 }
                 else
                 {
-                    Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), Main.rand.Next(npc.lifeMax / 900, npc.lifeMax / 800));
+                    int dropAmount = Main.rand.Next(npc.lifeMax / 900, npc.lifeMax / 800);
+                    if(dropAmount > 350)
+                    {
+                        dropAmount = 350;
+                    }
+                    Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), dropAmount);
                 }
             }
             else if (Main.rand.Next(10) == 0 && npc.lifeMax >= 1000 && npc.modNPC == null)
             {
-                Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), Main.rand.Next(npc.lifeMax / 900, npc.lifeMax / 800));
+                int dropAmount = Main.rand.Next(npc.lifeMax / 900, npc.lifeMax / 800);
+                if (dropAmount > 350)
+                {
+                    dropAmount = 350;
+                }
+                Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), dropAmount);
             }
             else if(Main.rand.Next(100) == 0 && npc.lifeMax >= 75 && npc.modNPC == null)
             {
@@ -41,11 +51,21 @@ namespace UpgradeEquipment.NPCs
             }
             else if (Main.rand.Next(100) == 0 && npc.lifeMax >= 15000 && npc.modNPC != null)
             {
-                Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), Main.rand.Next(npc.lifeMax / 1250, npc.lifeMax / 1100));
+                int dropAmount = Main.rand.Next(npc.lifeMax / 1250, npc.lifeMax / 1100);
+                if (dropAmount > 350)
+                {
+                    dropAmount = 350;
+                }
+                Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), dropAmount);
             }
             else if (Main.rand.Next(100) == 0 && npc.lifeMax >= 5000 && npc.modNPC != null)
             {
-                Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), Main.rand.Next(npc.lifeMax / 900, npc.lifeMax / 800));
+                int dropAmount = Main.rand.Next(npc.lifeMax / 900, npc.lifeMax / 800);
+                if (dropAmount > 350)
+                {
+                    dropAmount = 350;
+                }
+                Item.NewItem(npc.getRect(), ItemType<Items.UpgradeToken>(), dropAmount);
             }
             else if (Main.rand.Next(60) == 0 && npc.lifeMax >= 1000 && npc.modNPC != null)
             {
