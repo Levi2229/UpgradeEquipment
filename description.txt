@@ -7,12 +7,13 @@ You can configure some values if you feel they might be annoying, such as size a
 Release notes:
 
 Release 1.0
-- Reworked entire upgrade system so it's not a prefix anymore.
+- Reworked entire upgrade system so it doesn't use prefixes anymore.
 - Prefixes can now be combined with upgrades from this mod.
 - Changed Upgrade Token max stack size to 99999.
 - Rebalanced stats and prices.
 - Upgrade Tokens will drop from (modded) bosses/enemies, the more life they have the more you can get. Max drop amount is 350
-- made all weapon type items upgradeable.
+- made all vanilla weapon type items upgradeable.
+- Added support for Calamity's Rogue class and Thoriums Healer, Throwing and Bard classes.
 - Added config setting that makes upgrades overpowered.
 - Added config setting that changes the upgradetier maximum from +40 to +255.
 - Fixed bugs.
