@@ -21,6 +21,7 @@ namespace UpgradeEquipment.Items
         internal static bool disableKnockbackChange;
 
         private float initialShootSpeed = 0f;
+        private float initialAmmoShootSpeed = 0f;
         private float initialManaCost = 0f;
         private int initialCrit = 0;
 
@@ -33,7 +34,9 @@ namespace UpgradeEquipment.Items
         {
             int ugt = item.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier;
 
-            float _initialShootSpeed = item.GetGlobalItem<UpgradeEquipmentGlobalItem>().initialShootSpeed;
+            if (ugt > 0)
+            {
+                float _initialShootSpeed = item.GetGlobalItem<UpgradeEquipmentGlobalItem>().initialShootSpeed;
 
             if (_initialShootSpeed == 0f)
             {
@@ -41,8 +44,6 @@ namespace UpgradeEquipment.Items
                 _initialShootSpeed = item.shootSpeed;
             }
 
-            if (ugt > 0)
-            {
                 float velMult = PrefixHelper.getVelocityMult(ugt);
                 item.shootSpeed = _initialShootSpeed *= velMult;
             }
@@ -185,15 +186,15 @@ namespace UpgradeEquipment.Items
 
         public override float UseTimeMultiplier(Item item, Player player)
         {
-            if (PrefixHelper.getSpeedMult(upgradeTier) > 1f)
+            if (upgradeTier > 0)
             {
-                float speedmult = PrefixHelper.getSpeedMult(upgradeTier);
-                return speedmult;
+                if (PrefixHelper.getSpeedMult(upgradeTier) > 1f)
+                {
+                    float speedmult = PrefixHelper.getSpeedMult(upgradeTier);
+                    return speedmult;
+                }
             }
-            else
-            {
-                return 1f;
-            }
+            return 1f;
         }
 
 
@@ -202,8 +203,14 @@ namespace UpgradeEquipment.Items
             int ugt = weapon.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier;
             if (ugt > 0)
             {
-                speed = 1f * PrefixHelper.getVelocityMult(ugt) * 10;
-                weapon.shootSpeed = 15f;
+                float _initialAmmoShootSpeed = weapon.GetGlobalItem<UpgradeEquipmentGlobalItem>().initialAmmoShootSpeed;
+                if (_initialAmmoShootSpeed == 0f)
+                {
+                    _initialAmmoShootSpeed  = weapon.shootSpeed;
+                    weapon.GetGlobalItem<UpgradeEquipmentGlobalItem>().initialAmmoShootSpeed = weapon.shootSpeed;
+                }
+                speed = _initialAmmoShootSpeed * PrefixHelper.getVelocityMult(ugt);
+                weapon.shootSpeed = speed;
             }
         }
 
