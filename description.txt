@@ -6,6 +6,11 @@ You can configure some values if you feel they might be annoying, such as size a
 
 Release notes:
 
+Release 1.0.2:
+- Equipment UpgraderNPC can now always spawn.
+- Made Upgrade Tokens in multiple stacks in the inventory also usable.
+- Made the maximum upgradetier a slider in the config, 40 is still the max advised value and default.
+
 Release 1.0.1:
 - Fixed bug that would reset the prefix if you refunded or upgraded an item.
 - Now displaying more accurate text on item upgrade/refund.

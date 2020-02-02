@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using UpgradeEquipment.Items;
 using static Terraria.ModLoader.ModContent;
 
 namespace UpgradeEquipment.UI
@@ -80,18 +81,28 @@ namespace UpgradeEquipment.UI
             return "+" + (weaponUpgraderPrefix.getNameAsTier() + 1);
         }
 
-        internal static bool CanBuyUpgrade(int price)
+        internal static List<int> CanBuyUpgrade(int price, int attempt = 0)
         {
-            int upgradeTokenIndex = Main.LocalPlayer.FindItem(ItemType<Items.UpgradeToken>());
-            if (upgradeTokenIndex != -1)
+            int totalTokens = 0;
+            List<int> TokenPositions = new List<int>();
+            Item[] inventory = Main.LocalPlayer.inventory;
+            for (int i = 0; i < inventory.Length; i++)
             {
-                int tokenAmount = Main.LocalPlayer.inventory[upgradeTokenIndex].stack;
-                if (tokenAmount >= price)
+                if(inventory[i].netID == ItemType<Items.UpgradeToken>())
                 {
-                    return true;
+                    totalTokens += inventory[i].stack;
+                    TokenPositions.Add(i);
                 }
             }
-            return false;
+
+            if(totalTokens >= price)
+            {
+                return TokenPositions;
+            }
+            else
+            {
+                return new List<int>();
+            }
         }
 
         internal static int getTotalSpent(int upgradeTier)

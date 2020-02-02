@@ -10,6 +10,7 @@ using Terraria.UI;
 using Terraria.UI.Chat;
 using static Terraria.ModLoader.ModContent;
 using UpgradeEquipment.Items;
+using System.Collections.Generic;
 
 namespace UpgradeEquipment.UI
 {
@@ -180,10 +181,26 @@ namespace UpgradeEquipment.UI
                         }
                         tickPlayed = true;
                         Main.LocalPlayer.mouseInterface = true;
-                        if (Main.mouseLeftRelease && Main.mouseLeft && PrefixHelper.CanBuyUpgrade(awesomePrice) && upgradeTier < tierCap)
+
+                        List<int> playerTokens = PrefixHelper.CanBuyUpgrade(awesomePrice);
+
+                        if (Main.mouseLeftRelease && Main.mouseLeft && playerTokens.Count > 0 && upgradeTier < tierCap)
                         {
-                            int upgradeTokenIndex = Main.LocalPlayer.FindItem(ItemType<Items.UpgradeToken>());
-                            Main.LocalPlayer.inventory[upgradeTokenIndex].stack -= awesomePrice;
+
+                            foreach (int tokenIndex in playerTokens)
+                            {
+                                if(awesomePrice > Main.LocalPlayer.inventory[tokenIndex].stack)
+                                {
+                                    awesomePrice -= Main.LocalPlayer.inventory[tokenIndex].stack;
+                                    Main.LocalPlayer.inventory[tokenIndex].stack = 0;
+                                } else if (awesomePrice > 0) 
+                                {
+                                    int amountOnStack = Main.LocalPlayer.inventory[tokenIndex].stack;
+                                    Main.LocalPlayer.inventory[tokenIndex].stack -= awesomePrice;
+                                    awesomePrice -= amountOnStack;
+                                }
+                            }
+
                             bool favorited = _vanillaItemSlot.Item.favorited;
                             int stack = _vanillaItemSlot.Item.stack;
                             // This is the main effect of this slot. Giving the Awesome prefix 90% of the time and the ReallyAwesome prefix the other 10% of the time. All for a constant 1 gold. Useless, but informative.

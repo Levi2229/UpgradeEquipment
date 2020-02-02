@@ -98,19 +98,7 @@ namespace UpgradeEquipment.NPCs
 
         public override bool CanTownNPCSpawn(int numTownNPCs, int money)
         {
-            for (int k = 0; k < 255; k++)
-            {
-                Player player = Main.player[k];
-                if (!player.active)
-                {
-                    continue;
-                }
-                if (money > 1000)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
 
         public override void SetChatButtons(ref string button, ref string button2)

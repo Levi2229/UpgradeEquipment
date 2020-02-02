@@ -40,13 +40,15 @@ namespace UpgradeEquipment
         [Label("Reduce the values of the item upgrader. warning: less balanced")]
         public bool reduceValues;
 
-        [Label("Remove the +40 limit, you can now upgrade to +255")]
-        public bool removeTierCap;
+        [Label("Change maximum upgrade cap, 40 is recommended.")]
+        [Increment(5)]
+        [Range(20, 255)]
+        [DefaultValue(40)]
+        [Slider] 
+        public int tierCap;
 
         public override void OnChanged()
         {
-            // Here we use the OnChanged hook to initialize ExampleUI.visible with the new values.
-            // We maintain both ExampleUI.visible and ShowCoinUI as separate values so ShowCoinUI can act as a default while ExampleUI.visible can change within a play session.
             PrefixHelper.reducedValues = reduceValues;
             if (overpoweredUpgrades)
             {
@@ -57,13 +59,7 @@ namespace UpgradeEquipment
             }
             UpgradeEquipmentGlobalItem.disableSizeChange = disableSizeChange;
             UpgradeEquipmentGlobalItem.disableKnockbackChange = disableKnockbackChange;
-            if (removeTierCap)
-            {
-                WeaponUpgraderUI.tierCap = 255;
-            } else
-            {
-                WeaponUpgraderUI.tierCap = 40;
-            }
+            WeaponUpgraderUI.tierCap = tierCap;
         }
     }
 }
