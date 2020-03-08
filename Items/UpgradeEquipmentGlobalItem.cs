@@ -59,8 +59,6 @@ namespace UpgradeEquipment.Items
         {
             if (upgradeTier > 0)
             {
-
-
                 int ugt = item.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier;
                 float _initialManaCost = item.GetGlobalItem<UpgradeEquipmentGlobalItem>().initialManaCost;
 
@@ -201,7 +199,7 @@ namespace UpgradeEquipment.Items
         public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
         {
             int ugt = weapon.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier;
-            if (ugt > 0)
+             if (ugt > 0)
             {
                 float _initialAmmoShootSpeed = weapon.GetGlobalItem<UpgradeEquipmentGlobalItem>().initialAmmoShootSpeed;
                 if (_initialAmmoShootSpeed == 0f)

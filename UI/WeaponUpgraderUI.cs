@@ -64,6 +64,7 @@ namespace UpgradeEquipment.UI
         }
 
         private bool tickPlayed;
+        private bool tickPlayed2;
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             base.DrawSelf(spriteBatch);
@@ -125,6 +126,11 @@ namespace UpgradeEquipment.UI
                 Item item = _vanillaItemSlot.Item;
                 byte prefix = item.prefix;
                 int upgradeTier;
+                int worldLimit = 20;
+                if(Main.hardMode)
+                {
+                    worldLimit = tierCap;
+                }
                 UpgradeEquipmentGlobalItem globalitem = item.GetGlobalItem<UpgradeEquipmentGlobalItem>();
                 if (globalitem != null)
                 {
@@ -160,7 +166,7 @@ namespace UpgradeEquipment.UI
                     }
                     ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, "Refund ( " + (PrefixHelper.getTotalSpent(upgradeTier) / 2) + " tokens )", new Vector2(refundX - 50, refundY), c, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
                 }
-                if (globalitem != null && upgradeTier < tierCap)
+                if (globalitem != null && upgradeTier < tierCap && upgradeTier < worldLimit)
                 {
                     int reforgeX = slotX + 70;
                     int reforgeY = slotY + 40;
@@ -174,7 +180,7 @@ namespace UpgradeEquipment.UI
                     Main.spriteBatch.Draw(reforgeTexture, new Vector2(reforgeX, reforgeY), null, Color.White, 0f, reforgeTexture.Size() / 2f, 0.8f, SpriteEffects.None, 0f);
                     if (hoveringOverReforgeButton)
                     {
-                        Main.hoverItemName = Language.GetTextValue("LegacyInterface.19");
+                        Main.hoverItemName = "Upgrade";
                         if (!tickPlayed)
                         {
                             Main.PlaySound(12, -1, -1, 1, 1f, 0f);
@@ -220,6 +226,10 @@ namespace UpgradeEquipment.UI
                     {
                         tickPlayed = false;
                     }
+                } else if (upgradeTier == worldLimit && upgradeTier != tierCap)
+                {
+                    string message = "Unlock Hardmode for additional tiers!";
+                    ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, message, new Vector2(slotX + 50, slotY), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
                 } else
                 {
                     string message = "Max level reached!";
@@ -228,7 +238,13 @@ namespace UpgradeEquipment.UI
 
                 if (hoveringOverRefundButton && upgradeTier > 0)
                 {
+                    if (!tickPlayed2)
+                    {
+                        Main.PlaySound(12, -1, -1, 1, 1f, 0f);
+                    }
+                    tickPlayed2 = true;
                     Main.LocalPlayer.mouseInterface = true;
+
                     if (Main.mouseLeftRelease && Main.mouseLeft)
                     {
                         int upgradeTokenIndex = Main.LocalPlayer.FindItem(ItemType<Items.UpgradeToken>());
@@ -251,6 +267,10 @@ namespace UpgradeEquipment.UI
                         CombatText.NewText(new Rectangle((int)Main.LocalPlayer.position.X, (int)Main.LocalPlayer.position.Y, 5, 0), Color.White,  " + " + (PrefixHelper.getTotalSpent(upgradeTier) / 2) + " Upgrade Tokens", false, false);
                         Main.PlaySound(SoundID.Item37, -1, -1);
                     }
+                }
+                else
+                {
+                    tickPlayed2 = false;
                 }
             }
             else

@@ -16,7 +16,6 @@ using Terraria.Localization;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
 
-
 namespace UpgradeEquipment
 {
     public class UpgradeEquipment : Mod

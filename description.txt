@@ -6,6 +6,12 @@ You can configure some values if you feel they might be annoying, such as size a
 
 Release notes:
 
+Release 1.1.0
+-Upgrade tier limit is now set to 20 if the world is not in hardmode. 
+ This limit overrides the maximum upgradetier in the config.
+ So even if the config max tier is set to 255 it will be 20 untill hardmode is unlocked.
+- minor fixes.
+
 Release 1.0.2:
 - Equipment UpgraderNPC can now always spawn.
 - Made Upgrade Tokens in multiple stacks in the inventory also usable.
