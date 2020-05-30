@@ -6,6 +6,11 @@ You can configure some values if you feel they might be annoying, such as size a
 
 Release notes:
 
+Release 1.2.0
+- Infinite throwing items are now able to be upgraded.
+- Added option to change velocity boost amount (0 = no boost, 100 = default boost, 50 = 1/2 boost of default).
+- Rebalanced a bit.
+
 Release 1.1.0
 -Upgrade tier limit is now set to 20 if the world is not in hardmode. 
  This limit overrides the maximum upgradetier in the config.

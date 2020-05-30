@@ -34,6 +34,13 @@ namespace UpgradeEquipment
         [Label("Disable weapon knockback upgrading.")]
         public bool disableKnockbackChange;
 
+        [Label("Change the velocity multiplier")]
+        [Increment(1)]
+        [Range(0, 100)]
+        [DefaultValue(100)]
+        [Slider]
+        public int velocityMultiplier;
+
         [Label("Make upgrades overpowered - Not balanced and might break the game")]
         public bool overpoweredUpgrades;
 
@@ -50,6 +57,7 @@ namespace UpgradeEquipment
         public override void OnChanged()
         {
             PrefixHelper.reducedValues = reduceValues;
+            PrefixHelper.velocityMultiplier = velocityMultiplier;
             if (overpoweredUpgrades)
             {
                 PrefixHelper.opBonus = 1f;

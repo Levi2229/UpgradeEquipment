@@ -118,6 +118,7 @@ namespace UpgradeEquipment.UI
                 (_vanillaItemSlot.Item.melee ||
                 _vanillaItemSlot.Item.ranged ||
                 _vanillaItemSlot.Item.magic ||
+                _vanillaItemSlot.Item.thrown ||
                 isCalamityRogueItem ||
                 _vanillaItemSlot.Item.summon ||
                 isThoriumBardItem ||

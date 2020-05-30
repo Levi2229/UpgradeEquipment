@@ -13,6 +13,7 @@ namespace UpgradeEquipment.UI
     class PrefixHelper
     {
         public static bool reducedValues;
+        public static int velocityMultiplier;
         public static float opBonus = 0f;
 
         public PrefixHelper()
@@ -146,40 +147,14 @@ namespace UpgradeEquipment.UI
 
         internal static float getSpeedMult(int power)
         {
-            float multiplier = 1f + 0.01f * power;
+            float multiplier = 1f;
             if (power <= 10)
             {
-                multiplier = 1f + 0.003f * power;
+                multiplier = 1f + 0.0015f * power;
             }
             if (power > 10 && power <= 20)
             {
-                multiplier = 1f + 0.005f * power;
-            }
-
-            if (power > 20 && power <= 30)
-            {
-                multiplier = 1f + 0.01f * power;
-            }
-
-            if (power > 30)
-            {
-                multiplier = 1f + 0.016f * power;
-            }
-
-            return multiplier + (opBonus * 2f) ;
-        }
-
-        internal static float getVelocityMult(int power)
-        {
-            float multiplier = 1.03f + 0.01f * power;
-            float velMult = 1f;
-            if (power <= 10)
-            {
-                multiplier = 1f + 0.002f * power;
-            }
-            if (power > 10 && power <= 20)
-            {
-                multiplier = 1f + 0.004f * power;
+                multiplier = 1f + 0.006f * power;
             }
 
             if (power > 20 && power <= 30)
@@ -191,7 +166,42 @@ namespace UpgradeEquipment.UI
             {
                 multiplier = 1f + 0.01f * power;
             }
-            velMult = multiplier + (opBonus / 3f);
+
+            return multiplier + (opBonus * 3f) ;
+        }
+
+        internal static float getVelocityMult(int power)
+        {
+            float multiplier = 0f;
+            float velMult = 1f;
+            if (power <= 10)
+            {
+                multiplier = 0.002f * power;
+            }
+            if (power > 10 && power <= 20)
+            {
+                multiplier = 0.003f * power;
+            }
+
+            if (power > 20 && power <= 30)
+            {
+                multiplier =0.006f * power;
+            }
+
+            if (power > 30)
+            {
+                multiplier = 0.009f * power;
+            }
+
+            if (velocityMultiplier == 0)
+            {
+                return 1;
+            }
+
+            float multiplierReduction = velocityMultiplier / 100f;
+            multiplier = multiplier * multiplierReduction;
+            velMult += (float)(multiplier + (opBonus / 3f));
+
             return velMult;
         }
 

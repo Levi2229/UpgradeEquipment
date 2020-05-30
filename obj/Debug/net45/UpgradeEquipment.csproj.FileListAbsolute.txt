@@ -1,6 +1,3 @@
-C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\obj\Debug\net45\UpgradeEquipment.csproj.CoreCompileInputs.cache
-C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\obj\Debug\net45\UpgradeEquipment.AssemblyInfoInputs.cache
-C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\obj\Debug\net45\UpgradeEquipment.AssemblyInfo.cs
 C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\bin\Debug\net45\UpgradeEquipment.dll
 C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\bin\Debug\net45\UpgradeEquipment.pdb
 C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\bin\Debug\net45\Ionic.Zip.Reduced.dll
@@ -20,13 +17,16 @@ C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment
 C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\bin\Debug\net45\ReLogic.dll
 C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\bin\Debug\net45\Steamworks.NET.dll
 C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\bin\Debug\net45\System.ValueTuple.dll
-C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\bin\Debug\net45\Terraria.exe
 C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\bin\Debug\net45\TerrariaHooks.dll
-C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\bin\Debug\net45\Terraria.pdb
-C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\bin\Debug\net45\Terraria.xml
+C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\bin\Debug\net45\tModLoader.exe
+C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\bin\Debug\net45\tModLoader.pdb
+C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\bin\Debug\net45\tModLoader.xml
 C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\bin\Debug\net45\MonoMod.RuntimeDetour.xml
 C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\bin\Debug\net45\MonoMod.Utils.xml
+C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\obj\Debug\net45\UpgradeEquipment.csprojAssemblyReference.cache
+C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\obj\Debug\net45\UpgradeEquipment.csproj.CoreCompileInputs.cache
+C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\obj\Debug\net45\UpgradeEquipment.AssemblyInfoInputs.cache
+C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\obj\Debug\net45\UpgradeEquipment.AssemblyInfo.cs
 C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\obj\Debug\net45\UpgradeEquipment.csproj.CopyComplete
 C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\obj\Debug\net45\UpgradeEquipment.dll
 C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\obj\Debug\net45\UpgradeEquipment.pdb
-C:\Users\Levi\Documents\My Games\Terraria\ModLoader\Mod Sources\UpgradeEquipment\obj\Debug\net45\UpgradeEquipment.csprojAssemblyReference.cache

@@ -38,14 +38,16 @@ namespace UpgradeEquipment.Items
             {
                 float _initialShootSpeed = item.GetGlobalItem<UpgradeEquipmentGlobalItem>().initialShootSpeed;
 
-            if (_initialShootSpeed == 0f)
-            {
-                item.GetGlobalItem<UpgradeEquipmentGlobalItem>().initialShootSpeed = item.shootSpeed;
-                _initialShootSpeed = item.shootSpeed;
-            }
-
+                if (_initialShootSpeed == 0f)
+                {
+                    item.GetGlobalItem<UpgradeEquipmentGlobalItem>().initialShootSpeed = item.shootSpeed;
+                    _initialShootSpeed = item.shootSpeed;
+                }
+                
                 float velMult = PrefixHelper.getVelocityMult(ugt);
-                item.shootSpeed = _initialShootSpeed *= velMult;
+                if (velMult > 0) {
+                    item.shootSpeed = _initialShootSpeed *= velMult;
+                }
             }
             return true;
         }
