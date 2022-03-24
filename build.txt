@@ -1,10 +1,5 @@
-author = blushiemagic and wvlad and exterminator
-version = 0.5.5.11
-displayName = Magic Storage - Extra
-homepage = https://github.com/ExterminatorX99/MagicStorageExtra
-hideCode = false
-hideResources = false
-includeSource = true
-includePDB = true
-buildIgnore = OldArt\*, .git\*
-weakReferences = RecursiveCraft@1.6.1
+displayName = Upgrade Equipment (hrr_)
+author = hrr_
+version = 0.1.0
+homepage = https://github.com/sjieh/UpgradeEquipment
+buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*

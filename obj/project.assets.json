@@ -36,11 +36,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\neong\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\MagicStorageExtra\\MagicStorageExtra.csproj",
-      "projectName": "MagicStorageExtra-master",
-      "projectPath": "C:\\Users\\neong\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\MagicStorageExtra\\MagicStorageExtra.csproj",
+      "projectUniqueName": "C:\\Users\\neong\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\UpgradeEquipment\\UpgradeEquipment.csproj",
+      "projectName": "UpgradeEquipment",
+      "projectPath": "C:\\Users\\neong\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\UpgradeEquipment\\UpgradeEquipment.csproj",
       "packagesPath": "C:\\Users\\neong\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\neong\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\MagicStorageExtra\\obj\\",
+      "outputPath": "C:\\Users\\neong\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\UpgradeEquipment\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\neong\\AppData\\Roaming\\NuGet\\NuGet.Config",
