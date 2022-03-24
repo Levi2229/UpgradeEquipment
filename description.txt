@@ -1,10 +1,22 @@
-Upgrade Equipment (hrr_) is a watered-down, tweaked version of oempa's Upgrade Equipment Mod. While upgraded weapons will still be extremely strong, they won't be as broken overpowered as they could be in the original. Kill mobs and bosses for Upgrade Tokens, then use them to upgrade your weapons at the Upgrader NPC!
+Upgrade Equipment (hrr_) is a watered-down, tweaked version of oempa's Upgrade Equipment Mod. While upgraded weapons will still be extremely strong, they won't be as broken overpowered as they could've been in the original. 
 
-Upgrading was tested on the following damage types: Melee, Ranged, Magic, Summon, Sentry (Expanded Sentries), SotS Void, Esper Telekinetic, Calamity Rogue, Thorium Symphonic / Radiant / Throwing)
+Kill mobs and bosses for Upgrade Tokens, then use them to upgrade your weapons at the Upgrader NPC!
 
-Differences from Oempa's Version:
-- Fixed compatibility issue with newer Calamity versions but ITEMS WILL LOSE THEIR UPGRADE WHEN REFORGING (only when playing with Calamity).
-- Rebalanced damage/crit chance/speed increases - lower gains across the board, but still meaningful
-- Removed size/knockback/velocity increases entirely
+Differences from oempa's Version:
+- Support for any damage type! - probably
+- Fixed compatibility issue with newer Calamity versions but ITEMS WILL LOSE THEIR UPGRADE WHEN REFORGING (when playing with Calamity).
+- Rebalanced damage / crit chance / speed increases
+- Removed size / knockback / velocity / mana increases entirely
 - Rebalanced upgrade token drop amounts
 - Rebalanced upgrading costs
+
+Tested damage types: 
+- Melee / Ranged / Magic / Summon / Throwing (Terraria)
+- Rogue (Calamity)
+- Sentry (Expanded Sentries)
+- Void (Secrets of the Shadows)
+- Telekinetic (Esper Class)
+- Click (Clicker Class)
+- Aura (Aura Class)
+- Symphonic / Radiant / Throwing (Thorium)
+- Chemical / Gambling / Shamanic (Orchid)

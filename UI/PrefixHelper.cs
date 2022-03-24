@@ -100,8 +100,8 @@ namespace UpgradeEquipment_hrr.UI
 			return totalSpent;
 		}
 
-		/* +1 to +10: 3% fd or 6% sd / 2% crit / 2% use speed
-		 * +11 onwards: 1% fd or 2% sd */
+		/* +1 to +10: 3% fd / 2% crit / 2% use speed
+		 * +11 onwards: 1% fd */
 
 		// final damage increase
 		internal static float GetFinalDamageMult(int power)
@@ -110,7 +110,7 @@ namespace UpgradeEquipment_hrr.UI
 
 			if (power < 10)
 			{
-				mult = 1f + 0.03f * power;
+				mult = 1f + 0.04f * power;
 			}
 			else
 			{
@@ -120,6 +120,7 @@ namespace UpgradeEquipment_hrr.UI
 			return mult;
 		}
 
+		// crit chance increase
 		internal static int GetCriticalMult(int power)
 		{
 			int mult;
@@ -132,23 +133,6 @@ namespace UpgradeEquipment_hrr.UI
 			else
 			{
 				mult = 20;
-			}
-
-			return mult;
-		}
-
-		// summon damage increase
-		internal static float GetSummonDamageMult(int power)
-		{
-			float mult;
-
-			if (power < 10)
-			{
-				mult = 1f + 0.06f * power;
-			}
-			else
-			{
-				mult = 1.6f + 0.02f * (power - 10);
 			}
 
 			return mult;

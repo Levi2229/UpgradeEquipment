@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using UpgradeEquipment_hrr.Items;
@@ -25,7 +26,7 @@ namespace UpgradeEquipment_hrr.UI
 			{
 				Left = { Pixels = 50 },
 				Top = { Pixels = 270 },
-				ValidItemFunc = item => item.IsAir || !item.IsAir && item.Prefix(-3)
+				ValidItemFunc = item => item.IsAir || !item.IsAir
 			};
 			Append(_vanillaItemSlot);
 		}
@@ -78,6 +79,7 @@ namespace UpgradeEquipment_hrr.UI
 			const int slotX = 50;
 			const int slotY = 270;
 
+			// only allow weapons? to be upgraded
 			if (!_vanillaItemSlot.Item.IsAir &&
 				!_vanillaItemSlot.Item.accessory &&
 				!_vanillaItemSlot.Item.consumable &&
@@ -96,14 +98,14 @@ namespace UpgradeEquipment_hrr.UI
 				UpgradeEquipmentGlobalItem globalitem = item.GetGlobalItem<UpgradeEquipmentGlobalItem>();
 				if (globalitem != null)
 				{
-					upgradeTier = globalitem.upgradeTier;
+					upgradeTier = globalitem.UpgradeTier;
 				}
 				else
 				{
 					upgradeTier = 0;
 				}
 
-				int awesomePrice = PrefixHelper.DeterminePriceForNextUpgrade(globalitem.upgradeTier);
+				int awesomePrice = PrefixHelper.DeterminePriceForNextUpgrade(globalitem.UpgradeTier);
 				string upgradeCostText = "[c/" + Colors.AlphaDarken(Colors.CoinPlatinum).Hex3() + ":" + "Cost: " + awesomePrice + " Upgrade Tokens] ";
 
 				int refundX = slotX + 150;
@@ -169,7 +171,7 @@ namespace UpgradeEquipment_hrr.UI
 							bool favorited = _vanillaItemSlot.Item.favorited;
 							int stack = _vanillaItemSlot.Item.stack;
 
-							_vanillaItemSlot.Item.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier += 1;
+							_vanillaItemSlot.Item.GetGlobalItem<UpgradeEquipmentGlobalItem>().UpgradeTier += 1;
 							_vanillaItemSlot.Item.position.X = Main.LocalPlayer.position.X + (float)(Main.LocalPlayer.width / 2) - (float)(_vanillaItemSlot.Item.width / 2);
 							_vanillaItemSlot.Item.position.Y = Main.LocalPlayer.position.Y + (float)(Main.LocalPlayer.height / 2) - (float)(_vanillaItemSlot.Item.height / 2);
 							_vanillaItemSlot.Item.favorited = favorited;
@@ -221,7 +223,7 @@ namespace UpgradeEquipment_hrr.UI
 						}
 						bool favorited = _vanillaItemSlot.Item.favorited;
 
-						_vanillaItemSlot.Item.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier = 0;
+						_vanillaItemSlot.Item.GetGlobalItem<UpgradeEquipmentGlobalItem>().UpgradeTier = 0;
 
 						_vanillaItemSlot.Item.position.X = Main.LocalPlayer.position.X + (float)(Main.LocalPlayer.width / 2) - (float)(_vanillaItemSlot.Item.width / 2);
 						_vanillaItemSlot.Item.position.Y = Main.LocalPlayer.position.Y + (float)(Main.LocalPlayer.height / 2) - (float)(_vanillaItemSlot.Item.height / 2);

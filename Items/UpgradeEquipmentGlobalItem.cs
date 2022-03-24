@@ -11,70 +11,67 @@ namespace UpgradeEquipment_hrr.Items
 {
 	public class UpgradeEquipmentGlobalItem : GlobalItem
 	{
-		public byte upgradeTier;
-		internal static bool disableSizeChange;
-		internal static bool disableKnockbackChange;
-		private int initialCrit = 0;
-
-		private Color tooltipColor = Color.CornflowerBlue;
+		public byte UpgradeTier;
+		private Color _tooltipColor = Color.CornflowerBlue;
 
 		public UpgradeEquipmentGlobalItem()
 		{
-			upgradeTier = 0;
+			UpgradeTier = 0;
 		}
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
-			if (upgradeTier > 0)
+			if (UpgradeTier > 0)
 			{
 				// upgrade tier tooltip
-				TooltipLine line = new TooltipLine(mod, "upgradeTier", "Upgrade Tier " + upgradeTier)
+				TooltipLine tooltipTier = new TooltipLine(mod, "UpgradeTier", "Upgrade Tier " + UpgradeTier)
 				{
 					isModifier = true,
-					overrideColor = PrefixHelper.GetTierColor(upgradeTier),
+					overrideColor = PrefixHelper.GetTierColor(UpgradeTier),
 				};
-				tooltips.Add(line);
+				tooltips.Add(tooltipTier);
 
 				// tooltip for non-summon weapons
 				if (!item.summon)
 				{
-					float calcedDamageDisplay = 1f * (PrefixHelper.GetFinalDamageMult(upgradeTier) - 1f) * 100;
-					TooltipLine line2 = new TooltipLine(mod, "damage", "+" + Math.Round(calcedDamageDisplay) + "% final damage")
+					float calcedDamageDisplay = 1f * (PrefixHelper.GetFinalDamageMult(UpgradeTier) - 1f) * 100;
+					TooltipLine tooltipFinalDamage = new TooltipLine(mod, "damage", "+" + Math.Round(calcedDamageDisplay) + "% final damage")
 					{
 						isModifier = true,
-						overrideColor = tooltipColor
+						overrideColor = _tooltipColor
 					};
-					tooltips.Add(line2);
+					tooltips.Add(tooltipFinalDamage);
 
-					TooltipLine line4 = new TooltipLine(mod, "crit", "+" + PrefixHelper.GetCriticalMult(upgradeTier) + "% critical strike chance")
+					TooltipLine tooltipCrit = new TooltipLine(mod, "crit", "+" + PrefixHelper.GetCriticalMult(UpgradeTier) + "% critical strike chance")
 					{
 						isModifier = true,
-						overrideColor = tooltipColor
+						overrideColor = _tooltipColor
 					};
-					tooltips.Add(line4);
+					tooltips.Add(tooltipCrit);
 				}
-				// tooltip for summon weapons
 				else
+
+				// tooltip for summon weapons
 				{
-					float calcedDamageDisplay = 1f * (PrefixHelper.GetSummonDamageMult(upgradeTier) - 1f) * 100;
-					TooltipLine line2 = new TooltipLine(mod, "damage", "+" + Math.Round(calcedDamageDisplay) + "% damage")
+					float calcedDamageDisplay = 1f * (PrefixHelper.GetFinalDamageMult(UpgradeTier) - 1f) * 100;
+					TooltipLine tooltipFinalDamage = new TooltipLine(mod, "damage", "+" + Math.Round(calcedDamageDisplay) + "% final damage")
 					{
 						isModifier = true,
-						overrideColor = tooltipColor
+						overrideColor = _tooltipColor
 					};
-					tooltips.Add(line2);
+					tooltips.Add(tooltipFinalDamage);
 				}
 
 				// use speed tooltip
-				float calcedSpeedDisplay = (PrefixHelper.GetSpeedMult(upgradeTier) - 1f) * 100;
+				float calcedSpeedDisplay = (PrefixHelper.GetSpeedMult(UpgradeTier) - 1f) * 100;
 				if (calcedSpeedDisplay >= 1)
 				{
-					TooltipLine line6 = new TooltipLine(mod, "velocity", "+" + Math.Round(calcedSpeedDisplay) + "% speed")
+					TooltipLine tooltipSpeed = new TooltipLine(mod, "velocity", "+" + Math.Round(calcedSpeedDisplay) + "% speed")
 					{
 						isModifier = true,
-						overrideColor = tooltipColor
+						overrideColor = _tooltipColor
 					};
-					tooltips.Add(line6);
+					tooltips.Add(tooltipSpeed);
 				}
 			}
 		}
@@ -84,56 +81,39 @@ namespace UpgradeEquipment_hrr.Items
 		public override GlobalItem Clone(Item item, Item itemClone)
 		{
 			UpgradeEquipmentGlobalItem myClone = (UpgradeEquipmentGlobalItem)base.Clone(item, itemClone);
-			myClone.upgradeTier = upgradeTier;
+			myClone.UpgradeTier = UpgradeTier;
 			return myClone;
 		}
 
 		public override void Load(Item item, TagCompound tag)
 		{
-			upgradeTier = tag.GetByte("upgradeTier");
+			UpgradeTier = tag.GetByte("UpgradeTier");
 		}
 
 		public override bool NeedsSaving(Item item)
 		{
-			return upgradeTier > 0;
+			return UpgradeTier > 0;
 		}
 
 		public override TagCompound Save(Item item)
 		{
 			return new TagCompound {
-				{"upgradeTier", upgradeTier},
+				{"UpgradeTier", UpgradeTier},
 			};
-		}
-
-		public override void ModifyWeaponDamage(Item item, Player player, ref float add, ref float mult, ref float flat)
-		{
-			if (upgradeTier > 0)
-			{
-				if (item.summon)
-				{
-					mult *= PrefixHelper.GetSummonDamageMult(upgradeTier);
-				}
-			}
 		}
 
 		// crit multiplier
 		public override void GetWeaponCrit(Item item, Player player, ref int crit)
 		{
-			if (upgradeTier > 0)
+			if (UpgradeTier > 0)
 			{
 				if (!item.summon)
 				{
-					int _initialCrit = item.GetGlobalItem<UpgradeEquipmentGlobalItem>().initialCrit;
+					int _initialCrit = crit;
 
-					if (_initialCrit == 0f)
+					if (UpgradeTier > 0)
 					{
-						item.GetGlobalItem<UpgradeEquipmentGlobalItem>().initialCrit = crit;
-						_initialCrit = crit;
-					}
-
-					if (upgradeTier > 0)
-					{
-						crit = _initialCrit + PrefixHelper.GetCriticalMult(upgradeTier);
+						crit = _initialCrit + PrefixHelper.GetCriticalMult(UpgradeTier);
 					}
 				}
 			}
@@ -142,83 +122,22 @@ namespace UpgradeEquipment_hrr.Items
 		// use speed multiplier
 		public override float UseTimeMultiplier(Item item, Player player)
 		{
-			if (upgradeTier > 0)
+			if (UpgradeTier > 0)
 			{
-				return PrefixHelper.GetSpeedMult(upgradeTier);
+				return PrefixHelper.GetSpeedMult(UpgradeTier);
 			}
+
 			return 1f;
 		}
 
 		public override void NetSend(Item item, BinaryWriter writer)
 		{
-			writer.Write(upgradeTier);
+			writer.Write(UpgradeTier);
 		}
 
 		public override void NetReceive(Item item, BinaryReader reader)
 		{
-			upgradeTier = reader.ReadByte();
+			UpgradeTier = reader.ReadByte();
 		}
-
-		/* knockback multiplier
-        public override void GetWeaponKnockback(Item item, Player player, ref float knockback)
-        {
-            // Adds knockback bonuses
-            if (!disableKnockbackChange && upgradeTier > 1)
-            {
-                knockback *= 1f + 0.01f * upgradeTier;;
-            }
-        }
-        */
-
-		/* size multiplier
-        public override bool PreDrawInWorld(Item item, SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
-        {
-            if (upgradeTier > 0)
-            {
-                scale = 1f + 0.01f * upgradeTier;
-            }
-            return true;
-        }
-        */
-
-		/* velocity multi
-        public override bool Shoot(Item item, Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
-            int ugt = item.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier;
-
-            if (ugt > 0)
-            {
-                float _initialShootSpeed = item.GetGlobalItem<UpgradeEquipmentGlobalItem>().initialShootSpeed;
-
-                if (_initialShootSpeed == 0f)
-                {
-                    item.GetGlobalItem<UpgradeEquipmentGlobalItem>().initialShootSpeed = item.shootSpeed;
-                    _initialShootSpeed = item.shootSpeed;
-                }
-
-                float velMult = PrefixHelper.getVelocityMult(ugt);
-                if (velMult > 0) {
-                    item.shootSpeed = _initialShootSpeed *= velMult;
-                }
-            }
-            return true;
-        }
-
-        public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
-        {
-            int ugt = weapon.GetGlobalItem<UpgradeEquipmentGlobalItem>().upgradeTier;
-             if (ugt > 0)
-            {
-                float _initialAmmoShootSpeed = weapon.GetGlobalItem<UpgradeEquipmentGlobalItem>().initialAmmoShootSpeed;
-                if (_initialAmmoShootSpeed == 0f)
-                {
-                    _initialAmmoShootSpeed  = weapon.shootSpeed;
-                    weapon.GetGlobalItem<UpgradeEquipmentGlobalItem>().initialAmmoShootSpeed = weapon.shootSpeed;
-                }
-                speed = _initialAmmoShootSpeed * PrefixHelper.getVelocityMult(ugt);
-                weapon.shootSpeed = speed;
-            }
-        }
-        */
 	}
 }
