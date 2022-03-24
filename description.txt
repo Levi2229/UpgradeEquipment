@@ -1,12 +1,10 @@
-Upgrade Equipment (hrr_) is a watered-down, tweaked version of oempa's Upgrade Equipment Mod.
-The same basic features exist: kill mobs/bosses to get Upgrade Tokens to upgrade your weapons.
-Weapons will gain a big boost in stats from +1 to +10. However, they will gain much smaller amounts until +255.
-While upgraded weapons will still be extremely strong, they won't be as broken overpowered as they could be in the original.
+Upgrade Equipment (hrr_) is a watered-down, tweaked version of oempa's Upgrade Equipment Mod. While upgraded weapons will still be extremely strong, they won't be as broken overpowered as they could be in the original. Kill mobs and bosses for Upgrade Tokens, then use them to upgrade your weapons at the Upgrader NPC!
 
-CHANGES FROM THE ORIGINAL:
-- Fixed support for most? damage types? Anything that can be reforged can be upgraded (tested on Expanded Sentries, SotS Void, Esper Telekinetic, Calamity Rogue, Thorium Symphonic/Radiant/Throwing)
-- Fixed compatibility issue with newer Calamity versions but ITEMS WILL LOSE THEIR UPGRADE WHEN REFORGING WHEN PLAYING WITH CALAMITY.
+Upgrading was tested on the following damage types: Melee, Ranged, Magic, Summon, Sentry (Expanded Sentries), SotS Void, Esper Telekinetic, Calamity Rogue, Thorium Symphonic / Radiant / Throwing)
+
+Differences from Oempa's Version:
+- Fixed compatibility issue with newer Calamity versions but ITEMS WILL LOSE THEIR UPGRADE WHEN REFORGING (only when playing with Calamity).
 - Rebalanced damage/crit chance/speed increases - lower gains across the board, but still meaningful
-- Removed size/knockback/velocity increases
+- Removed size/knockback/velocity increases entirely
 - Rebalanced upgrade token drop amounts
 - Rebalanced upgrading costs
