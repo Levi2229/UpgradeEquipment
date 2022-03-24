@@ -46,16 +46,12 @@ namespace UpgradeEquipment_hrr.Items
 					};
 					tooltips.Add(line2);
 
-					if (upgradeTier / 2 > 0)
+					TooltipLine line4 = new TooltipLine(mod, "crit", "+" + PrefixHelper.GetCriticalMult(upgradeTier) + "% critical strike chance")
 					{
-
-						TooltipLine line4 = new TooltipLine(mod, "crit", "+" + PrefixHelper.GetCriticalMult(upgradeTier) + "% critical strike chance")
-						{
-							isModifier = true,
-							overrideColor = tooltipColor
-						};
-						tooltips.Add(line4);
-					}
+						isModifier = true,
+						overrideColor = tooltipColor
+					};
+					tooltips.Add(line4);
 				}
 				// tooltip for summon weapons
 				else
