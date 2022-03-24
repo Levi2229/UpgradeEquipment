@@ -1,12 +1,14 @@
 # Upgrade Equipment (hrr)
 
-Upgrade Equipment (hrr_) is a watered-down, tweaked version of oempa's Upgrade Equipment Mod. While upgraded weapons will still be extremely strong, they won't be as broken overpowered as they could be in the original. 
+Upgrade Equipment (hrr_) is a watered-down, tweaked version of oempa's Upgrade Equipment Mod. While upgraded weapons will still be extremely strong, they won't be as broken overpowered as they could've been in the original. 
+
 Kill mobs and bosses for Upgrade Tokens, then use them to upgrade your weapons at the Upgrader NPC!
 
-# Differences from Oempa's Version:
-- Fixed compatibility issue with newer Calamity versions but ITEMS WILL LOSE THEIR UPGRADE WHEN REFORGING (only when playing with Calamity).
-- Rebalanced damage/crit chance/speed increases - lower gains across the board, but still meaningful
-- Removed size/knockback/velocity increases entirely
+# Differences from oempa's Version:
+- Support for any damage type! - probably
+- Fixed compatibility issue with newer Calamity versions but ITEMS WILL LOSE THEIR UPGRADE WHEN REFORGING (when playing with Calamity).
+- Rebalanced damage / crit chance / speed increases
+- Removed size / knockback / velocity / mana increases entirely
 - Rebalanced upgrade token drop amounts
 - Rebalanced upgrading costs
 
