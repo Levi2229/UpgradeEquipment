@@ -6,7 +6,7 @@ Kill mobs and bosses for Upgrade Tokens, then use them to upgrade your weapons a
 
 # Differences from oempa's Version:
 - Support for any damage type! - probably
-- Fixed compatibility issue with newer Calamity versions but ITEMS WILL LOSE THEIR UPGRADE WHEN REFORGING (when playing with Calamity).
+- Fixed compatibility issue with newer Calamity versions but ITEMS WILL LOSE THEIR UPGRADE WHEN REFORGING (when playing with Calamity)
 - Rebalanced damage / crit chance / speed increases
 - Removed size / knockback / velocity / mana increases entirely
 - Rebalanced upgrade token drop amounts
