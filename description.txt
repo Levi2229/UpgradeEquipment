@@ -1,63 +1,82 @@
--- Thank you so much for hitting 12,000 downloads! -- 
+Are you tired of having a mess of chests in your base? Never remember where you put your items, and have to run across your entire house to get from chest to chest? This mod will solve all of your problems!
 
-Upgrade Equipment is a mod that alllows you to upgrade your weapons sequentially. from +1, +2.. all the way up to +40. This is done with the help of a new NPC that can spawn from the beginning.
-The upgrades currently work for most ranged/mage/melee weapons. I will focus on adding mod support for other classes later.
-You can configure some values if you feel they might be annoying, such as size and knockback.
+This mod offers a solution to storage problems once and for all. It allows you to construct a central network to store all your items, that you can access from one single block. If desired, you can even set up multiple access points to use your storage from anywhere in the world. You can search your storage for items with a certain name, filter by item types, etc. The magic storage can even craft items for you!
 
-Release notes:
+The magic storage scales as you progress in your playthrough. It is accessible very early in the game, but with limited power. As you defeat bosses and earn more materials, you will be able to upgrade your storage to perform more functions and more easily expand the storage capacity.
 
-Release 1.2.0
-- Infinite throwing items are now able to be upgraded.
-- Added option to change velocity boost amount (0 = no boost, 100 = default boost, 50 = 1/2 boost of default).
-- Rebalanced a bit.
+Changes from original:
+Added more station slots to the crafting interface.
+Added more sort options.
+Added RecursiveCraft support
+Added quick stack and restock to Storage Heart deposit button (Read tooltip)
+Added weapon DPS calculation (Not 100% accurate)
 
-Release 1.1.0
--Upgrade tier limit is now set to 20 if the world is not in hardmode. 
- This limit overrides the maximum upgradetier in the config.
- So even if the config max tier is set to 255 it will be 20 untill hardmode is unlocked.
-- minor fixes.
+TODO:
+Money Compactor
+Blacklist/Whitelist for specific accesses
+Wait for bug reports
 
-Release 1.0.2:
-- Equipment UpgraderNPC can now always spawn.
-- Made Upgrade Tokens in multiple stacks in the inventory also usable.
-- Made the maximum upgradetier a slider in the config, 40 is still the max advised value and default.
-
-Release 1.0.1:
-- Fixed bug that would reset the prefix if you refunded or upgraded an item.
-- Now displaying more accurate text on item upgrade/refund.
-
-Release 1.0
-- Reworked entire upgrade system so it doesn't use prefixes anymore.
-- Prefixes can now be combined with upgrades from this mod.
-- Changed Upgrade Token max stack size to 99999.
-- Rebalanced stats and prices.
-- Upgrade Tokens will drop from (modded) bosses/enemies, the more life they have the more you can get. Max drop amount is 350
-- made all vanilla weapon type items upgradeable.
-- Added support for Calamity's Rogue class and Thoriums Healer, Throwing and Bard classes.
-- Added config setting that makes upgrades overpowered.
-- Added config setting that changes the upgradetier maximum from +40 to +255.
-- Fixed bugs.
-
-Release 0.3.1
-
-- Fixed crashes related to the player having no Upgrade Tokens in their inventory.
-
-Release 0.3
-
-- You now get Upgrade Tokens when you defeat any boss.
-- Upgrade Tokens can be spent at the Equipment Upgrader NPC.
-- Added a refund button when items are +6 or higher, this refunds half the tokens spent.
-- Rebalanced melee upgrades.
-
-Release 0.2:
-- Added icon and description.
-
-Release 0.1:
-- Added NPC to allow you to upgrade weapons.
-
-NOTE:
-This mod cannot be combined with other forms of prefixes or modifiers.
-Does not work on accessories.
-
-Known bugs:
-- Calamity's Revengeance mode Moonlord does not drop any upgrade tokens due to the way the mod implements that boss.
+Changelog:
+0.5.5.10:
+Fix Linux issues - fuck Mono
+0.5.5.9:
+Add config option to toggle the dps tooltip
+0.5.5.8:
+Fix bug that prevented the placement of Storage Connector above blocks
+0.5.5.7:
+ - Fix bug that prevented placing storage tiles onto blocks
+0.5.5.6:
+ - Fix Storage Unit placement bug
+0.5.5.5:
+ - Items of same type and prefix stack together
+ - Bug fix
+0.5.5.3:
+ - Added config to clear search text
+0.5.4.1:
+Add config for storage deposit quick stack behaviour
+ - Due to some config changes, all your config settings have been reset
+0.5.4.0:
+Fixed world sections not loading due to storage systems having too many items
+Fixed bad netcode causing "read underflows"
+Fixed the crafting GUI sometimes throwing exceptions
+Fixes done by absoluteAquarian
+0.5.3.6:
+Update RecursiveCraft reference
+0.5.3.5:
+Fix storage access
+0.5.3.4:
+Fix reach extending items not working
+0.5.3.3:
+Show that ingredient is craftable in ingredient list
+0.5.3.2:
+Fix logic error
+0.5.3.1:
+Fix storage heart not being loaded when far away in multiplayer
+0.5.3.0:
+Update for new RecursiveCraft version
+0.5.2.13:
+Fix issue with recipe staying selected after reload
+0.5.2.12:
+Fix bug introduced in 0.5.2.9 and add Mod Helpers bug reporting feature
+0.5.2.11:
+Some more optimizations
+0.5.2.10:
+Fix right click only working on result once
+0.5.2.9:
+Fix pulling wrong item from storage
+0.5.2.8:
+Optimizations and modular ingredient UI
+0.5.2.7:
+Added config for default recipe filter
+0.5.2.6:
+Fixed extracting items from first instead of last stack
+0.5.2.5:
+Functional RecursiveCraft support
+0.5.2.4:
+Fix vanilla recipe groups not being processed
+0.5.2.2:
+Temporarily disable integration with RecursiveCraft due to bugs
+0.5.2.1:
+Fix search bug
+0.5.2.0:
+Added integration with the RecursiveCraft mod

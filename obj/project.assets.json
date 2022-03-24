@@ -2,23 +2,23 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.5": {
-      "tModLoader.CodeAssist/0.1.1": {
+      "tModLoader.CodeAssist/0.1.3": {
         "type": "package"
       }
     }
   },
   "libraries": {
-    "tModLoader.CodeAssist/0.1.1": {
-      "sha512": "bUQ4HAiRYq8Zisms7FI9ffSf4nZHwFFZU5j8Hpc/9rFB16GOGJg2ulHV0ZDErzoAAbXBeRdO8/VbSltBwmDcpA==",
+    "tModLoader.CodeAssist/0.1.3": {
+      "sha512": "2TVpwEsbJF+LZOGZ7q/VTTcsnFnQzngjVOcwkzGlXimFXEMjPROLjDv32F/eA+k2MLHtdL0DJ0JNWudUVs70fw==",
       "type": "package",
-      "path": "tmodloader.codeassist/0.1.1",
+      "path": "tmodloader.codeassist/0.1.3",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "NugetIcon.png",
         "analyzers/dotnet/cs/tModLoader.CodeAssist.dll",
-        "tmodloader.codeassist.0.1.1.nupkg.sha512",
+        "tmodloader.codeassist.0.1.3.nupkg.sha512",
         "tmodloader.codeassist.nuspec",
         "tools/install.ps1",
         "tools/uninstall.ps1"
@@ -31,23 +31,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Levi\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\neong\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Levi\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\UpgradeEquipment\\UpgradeEquipment.csproj",
-      "projectName": "UpgradeEquipment",
-      "projectPath": "C:\\Users\\Levi\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\UpgradeEquipment\\UpgradeEquipment.csproj",
-      "packagesPath": "C:\\Users\\Levi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Levi\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\UpgradeEquipment\\obj\\",
+      "projectUniqueName": "C:\\Users\\neong\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\MagicStorageExtra\\MagicStorageExtra.csproj",
+      "projectName": "MagicStorageExtra-master",
+      "projectPath": "C:\\Users\\neong\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\MagicStorageExtra\\MagicStorageExtra.csproj",
+      "packagesPath": "C:\\Users\\neong\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\neong\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\MagicStorageExtra\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Levi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\neong\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -59,6 +55,7 @@
       },
       "frameworks": {
         "net45": {
+          "targetAlias": "net45",
           "projectReferences": {}
         }
       },
@@ -70,12 +67,14 @@
     },
     "frameworks": {
       "net45": {
+        "targetAlias": "net45",
         "dependencies": {
           "tModLoader.CodeAssist": {
             "target": "Package",
             "version": "[0.1.*, )"
           }
-        }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
