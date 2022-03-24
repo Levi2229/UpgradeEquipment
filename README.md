@@ -1,4 +1,4 @@
-# Upgrade Equipment (hrr)
+# Upgrade Equipment (hrr\_)
 
 Upgrade Equipment (hrr_) is a watered-down, tweaked version of oempa's Upgrade Equipment Mod. While upgraded weapons will still be extremely strong, they won't be as broken overpowered as they could've been in the original. 
 
