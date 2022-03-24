@@ -4,9 +4,9 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace UpgradeEquipment
+namespace UpgradeEquipment_hrr
 {
-	public class UpgradeEquipment : Mod
+	public class UpgradeEquipment_hrr : Mod
 	{
 		internal UserInterface WeaponUpgraderUserInterface;
 
@@ -20,6 +20,15 @@ namespace UpgradeEquipment
 		{
 			WeaponUpgraderUserInterface?.Update(gameTime);
 		}
+		public override void PostSetupContent()
+		{
+			// why census support for an npc that can spawn the second the world is created? why not
+			Mod censusMod = ModLoader.GetMod("Census");
+			if (censusMod != null)
+			{
+				censusMod.Call("TownNPCCondition", NPCType("Upgrader"), "Exist");
+			}
+		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
@@ -32,7 +41,6 @@ namespace UpgradeEquipment
 					"Upgrader UI",
 					delegate
 					{
-						// If the current UIState of the UserInterface is null, nothing will draw. We don't need to track a separate .visible value.
 						WeaponUpgraderUserInterface.Draw(Main.spriteBatch, new GameTime());
 						return true;
 					},

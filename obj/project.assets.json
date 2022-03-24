@@ -36,11 +36,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\neong\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\UpgradeEquipment\\UpgradeEquipment.csproj",
-      "projectName": "UpgradeEquipment",
-      "projectPath": "C:\\Users\\neong\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\UpgradeEquipment\\UpgradeEquipment.csproj",
+      "projectUniqueName": "C:\\Users\\neong\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\UpgradeEquipment_hrr\\UpgradeEquipment_hrr.csproj",
+      "projectName": "UpgradeEquipment_hrr",
+      "projectPath": "C:\\Users\\neong\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\UpgradeEquipment_hrr\\UpgradeEquipment_hrr.csproj",
       "packagesPath": "C:\\Users\\neong\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\neong\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\UpgradeEquipment\\obj\\",
+      "outputPath": "C:\\Users\\neong\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\UpgradeEquipment_hrr\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\neong\\AppData\\Roaming\\NuGet\\NuGet.Config",

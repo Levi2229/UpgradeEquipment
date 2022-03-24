@@ -6,11 +6,11 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.UI;
 using Terraria.UI.Chat;
-using UpgradeEquipment.Items;
-using UpgradeEquipment.NPCs;
+using UpgradeEquipment_hrr.Items;
+using UpgradeEquipment_hrr.NPCs;
 using static Terraria.ModLoader.ModContent;
 
-namespace UpgradeEquipment.UI
+namespace UpgradeEquipment_hrr.UI
 {
 	internal class UpgraderUI : UIState
 	{
@@ -56,7 +56,7 @@ namespace UpgradeEquipment.UI
 			if (Main.LocalPlayer.talkNPC == -1 || Main.npc[Main.LocalPlayer.talkNPC].type != NPCType<UpgraderNPC>())
 			{
 				// When that happens, we can set the state of our UserInterface to null, thereby closing this UIState. This will trigger OnDeactivate above.
-				GetInstance<UpgradeEquipment>().WeaponUpgraderUserInterface.SetState(null);
+				GetInstance<UpgradeEquipment_hrr>().WeaponUpgraderUserInterface.SetState(null);
 			}
 		}
 

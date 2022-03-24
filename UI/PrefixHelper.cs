@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Terraria;
 using static Terraria.ModLoader.ModContent;
 
-namespace UpgradeEquipment.UI
+namespace UpgradeEquipment_hrr.UI
 {
 	internal class PrefixHelper
 	{
@@ -114,7 +114,7 @@ namespace UpgradeEquipment.UI
 			}
 			else
 			{
-				mult = 1.2f + 0.01f * (power - 10);
+				mult = 1.3f + 0.01f * (power - 10);
 			}
 
 			return mult;

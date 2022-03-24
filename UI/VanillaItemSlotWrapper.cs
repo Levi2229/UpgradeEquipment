@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.GameInput;
 using Terraria.UI;
 
-namespace UpgradeEquipment.UI
+namespace UpgradeEquipment_hrr.UI
 {
 	// This class wraps the vanilla ItemSlot class into a UIElement. The ItemSlot class was made before the UI system was made, so it can't be used normally with UIState.
 	// By wrapping the vanilla ItemSlot class, we can easily use ItemSlot.

@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace UpgradeEquipment.UI
+namespace UpgradeEquipment_hrr.UI
 {
 	internal class UpgraderPrefix
 	{

@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-namespace UpgradeEquipment.NPCs
+namespace UpgradeEquipment_hrr.NPCs
 {
 	[AutoloadHead]
 	public class UpgraderNPC : ModNPC
@@ -127,7 +127,7 @@ namespace UpgradeEquipment.NPCs
 			{
 				Main.playerInventory = true;
 				Main.npcChatText = "";
-				GetInstance<UpgradeEquipment>().WeaponUpgraderUserInterface.SetState(new UI.UpgraderUI());
+				GetInstance<UpgradeEquipment_hrr>().WeaponUpgraderUserInterface.SetState(new UI.UpgraderUI());
 			}
 		}
 

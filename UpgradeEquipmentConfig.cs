@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel;
 using Terraria.ModLoader.Config;
-using UpgradeEquipment.UI;
+using UpgradeEquipment_hrr.UI;
 
-namespace UpgradeEquipment
+namespace UpgradeEquipment_hrr
 {
 	/// <summary>
 	/// This config operates on a per-client basis.
 	/// These parameters are local to this computer and are NOT synced from the server.
 	/// </summary>
-	public class UpgradeEquipmentclient : ModConfig
+	public class UpgradeEquipmentConfig : ModConfig
 	{
-		public override ConfigScope Mode => ConfigScope.ClientSide;
+		public override ConfigScope Mode => ConfigScope.ServerSide;
 
 		[Label("Number of upgrades accessible pre-hardmode")]
 		[Increment(5)]

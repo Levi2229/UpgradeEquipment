@@ -5,9 +5,9 @@ using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using UpgradeEquipment.UI;
+using UpgradeEquipment_hrr.UI;
 
-namespace UpgradeEquipment.Items
+namespace UpgradeEquipment_hrr.Items
 {
 	public class UpgradeEquipmentGlobalItem : GlobalItem
 	{

@@ -1,6 +1,6 @@
 ﻿using Terraria.ModLoader;
 
-namespace UpgradeEquipment.Items
+namespace UpgradeEquipment_hrr.Items
 {
 	internal class UpgradeToken : ModItem
 	{

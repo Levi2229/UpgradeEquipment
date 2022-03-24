@@ -1,9 +1,9 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using UpgradeEquipment.Items;
-using UpgradeEquipment.UI;
+using UpgradeEquipment_hrr.Items;
+using UpgradeEquipment_hrr.UI;
 
-namespace UpgradeEquipment
+namespace UpgradeEquipment_hrr
 {
 	class UpgradeEquipmentPlayer : ModPlayer
 	{

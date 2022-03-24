@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-namespace UpgradeEquipment.NPCs
+namespace UpgradeEquipment_hrr.NPCs
 {
 	internal class UpgradeEquipmentGlobalNPC : GlobalNPC
 	{
